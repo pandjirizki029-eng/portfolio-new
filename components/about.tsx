@@ -43,8 +43,9 @@ const ribbonItems2 = [
 
 export function About() {
   return (
-    <section id="about" className="border-b border-border overflow-hidden">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+    <section id="about" className="border-b border-border overflow-hidden w-full">
+      {/* Upper About Content (Centered max-w-6xl) */}
+      <div className="mx-auto max-w-6xl px-6 pt-20 pb-12 md:pt-28 md:pb-16">
         {/* About Bio Header */}
         <div className="grid gap-12 md:grid-cols-[1fr_1.4fr]">
           <div>
@@ -66,7 +67,7 @@ export function About() {
           </div>
         </div>
 
-        {/* Full-width Skill Groups with Crisp White Stroke */}
+        {/* Skill Groups Grid */}
         <div className="mt-16 border-t border-white/10 pt-10">
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {skillGroups.map((group) => (
@@ -88,37 +89,37 @@ export function About() {
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Orange Angled Ribbon Marquee (Shape from Photo 3 with infinite scroll) */}
-        <div className="relative mt-16 w-full overflow-hidden py-6">
-          {/* Top Angled Ribbon */}
-          <div className="relative z-10 -rotate-2 transform bg-[#ff5500] py-3.5 shadow-lg border-y border-white/20">
-            <div className="animate-marquee-left flex items-center whitespace-nowrap">
-              {[...ribbonItems1, ...ribbonItems1, ...ribbonItems1, ...ribbonItems1].map((item, idx) => (
-                <span
-                  key={idx}
-                  className="mx-3 flex items-center font-mono text-xs md:text-sm font-extrabold uppercase tracking-widest text-black"
-                >
-                  {item}
-                  <span className="ml-6 text-black/70 font-black">✦</span>
-                </span>
-              ))}
-            </div>
+      {/* FULL WIDTH Orange Angled Ribbon Marquee (100% Screen Edge-to-Edge) */}
+      <div className="relative w-full overflow-hidden py-10 my-4">
+        {/* Top Angled Ribbon */}
+        <div className="relative z-10 -rotate-2 transform bg-[#ff5500] py-3.5 shadow-lg border-y border-white/20 w-[110%] -left-[5%]">
+          <div className="animate-marquee-left flex items-center whitespace-nowrap">
+            {[...ribbonItems1, ...ribbonItems1, ...ribbonItems1, ...ribbonItems1].map((item, idx) => (
+              <span
+                key={idx}
+                className="mx-3 flex items-center font-mono text-xs md:text-sm font-extrabold uppercase tracking-widest text-black"
+              >
+                {item}
+                <span className="ml-6 text-black/70 font-black">✦</span>
+              </span>
+            ))}
           </div>
+        </div>
 
-          {/* Bottom Angled Ribbon (Crossing over) */}
-          <div className="relative z-20 -mt-7 rotate-2 transform bg-[#ff6b00] py-3.5 shadow-2xl border-y border-white/20">
-            <div className="animate-marquee-right flex items-center whitespace-nowrap">
-              {[...ribbonItems2, ...ribbonItems2, ...ribbonItems2, ...ribbonItems2].map((item, idx) => (
-                <span
-                  key={idx}
-                  className="mx-3 flex items-center font-mono text-xs md:text-sm font-extrabold uppercase tracking-widest text-black"
-                >
-                  {item}
-                  <span className="ml-6 text-black/70 font-black">★</span>
-                </span>
-              ))}
-            </div>
+        {/* Bottom Angled Ribbon (Crossing over) */}
+        <div className="relative z-20 -mt-7 rotate-2 transform bg-[#ff6b00] py-3.5 shadow-2xl border-y border-white/20 w-[110%] -left-[5%]">
+          <div className="animate-marquee-right flex items-center whitespace-nowrap">
+            {[...ribbonItems2, ...ribbonItems2, ...ribbonItems2, ...ribbonItems2].map((item, idx) => (
+              <span
+                key={idx}
+                className="mx-3 flex items-center font-mono text-xs md:text-sm font-extrabold uppercase tracking-widest text-black"
+              >
+                {item}
+                <span className="ml-6 text-black/70 font-black">★</span>
+              </span>
+            ))}
           </div>
         </div>
       </div>

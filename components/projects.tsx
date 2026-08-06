@@ -1,261 +1,422 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Image from 'next/image'
 import {
   FolderGit2,
   Award,
   ArrowUpRight,
   ExternalLink,
-  ShieldCheck,
-  Image as ImageIcon,
+  Folder,
+  Layers,
+  Sparkles,
+  Terminal,
+  Cpu,
+  Globe,
+  Database,
+  Lock,
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  Server,
+  Cloud,
+  Bot,
 } from 'lucide-react'
 
-/* ── Data with Photo Support ── */
+/* ── 7 Real Projects with Custom Titles & User Images ── */
 const projectsData = [
   {
     id: 'p1',
-    category: 'WEB APP',
+    fileNo: 'FILE_01',
+    category: 'WEB APPLICATION',
     title: 'ProductivityFlow Management App',
     year: '2026',
     status: 'Active',
     image: '/images/project1.png',
     tags: ['Next.js', 'TypeScript', 'Tailwind', 'Kanban'],
+    icon: Globe,
   },
   {
     id: 'p2',
-    category: '3D GRAPHICS',
-    title: 'Interactive 3D Virtual Museum',
+    fileNo: 'FILE_02',
+    category: '3D GRAPHICS & WEBGL',
+    title: 'Interactive 3D Virtual Museum Engine',
     year: '2025',
     status: 'Completed',
     image: '/images/project2.png',
     tags: ['Three.js', 'React Three Fiber', 'WebGL'],
+    icon: Cpu,
   },
   {
     id: 'p3',
-    category: 'SCHOOL PORTAL',
-    title: 'SMK Telkom Student Portal',
+    fileNo: 'FILE_03',
+    category: 'SCHOOL ARCHITECTURE',
+    title: 'SMK Telkom Academic & Student Portal',
     year: '2024',
     status: 'Completed',
-    image: '/images/project1.png',
+    image: '/images/project3.png',
     tags: ['PHP', 'Laravel', 'MySQL', 'Tailwind'],
+    icon: Terminal,
+  },
+  {
+    id: 'p4',
+    fileNo: 'FILE_04',
+    category: 'DEVOPS & CONTAINER',
+    title: 'Implementasi Laravel dengan Redis & MySQL Menggunakan Docker',
+    year: '2025',
+    status: 'Completed',
+    image: '/images/project4.png',
+    tags: ['Docker', 'Laravel', 'Redis', 'MySQL'],
+    icon: Layers,
+  },
+  {
+    id: 'p5',
+    fileNo: 'FILE_05',
+    category: 'NETWORKING & SERVER',
+    title: 'Website Load Balancer Menggunakan Nginx',
+    year: '2025',
+    status: 'Completed',
+    image: '/images/project5.png',
+    tags: ['Nginx', 'Load Balancer', 'Linux', 'Reverse Proxy'],
+    icon: Server,
+  },
+  {
+    id: 'p6',
+    fileNo: 'FILE_06',
+    category: 'ARTIFICIAL INTELLIGENCE',
+    title: 'Interactive Chatbot AI Engine',
+    year: '2025',
+    status: 'Active',
+    image: '/images/project6.png',
+    tags: ['AI Chatbot', 'Python', 'React', 'OpenAI API'],
+    icon: Bot,
+  },
+  {
+    id: 'p7',
+    fileNo: 'FILE_07',
+    category: 'CLOUD & DEPLOYMENT',
+    title: 'Deploy HTTPS Server via VPS & Tunneling Cloudflare',
+    year: '2025',
+    status: 'Completed',
+    image: '/images/project7.png',
+    tags: ['Cloudflare', 'VPS', 'Tunneling', 'HTTPS / SSL'],
+    icon: Cloud,
   },
 ]
 
+/* ── 4 Certificates with User Images ── */
 const certificatesData = [
   {
     id: 'c1',
+    fileNo: 'CERT_01',
     category: 'CERTIFICATION',
     title: 'Junior Web Developer (JWD)',
-    issuer: 'BNSP / Kominfo Indonesia',
+    issuer: 'Kominfo / BNSP Indonesia',
     year: '2025',
     credentialId: 'CERT-BNSP-88921',
-    image: '/images/cert1.png',
-    tags: ['BNSP Standard', 'Frontend & Backend'],
+    image: '/images/certif3.png',
+    tags: ['BNSP Standard', 'Web Development'],
+    icon: Award,
   },
   {
     id: 'c2',
-    category: 'SPECIALIZATION',
-    title: 'Full-Stack JavaScript Web Developer',
-    issuer: 'Dicoding Indonesia Academy',
+    fileNo: 'CERT_02',
+    category: 'COMPETENCY',
+    title: 'Sertifikat Kompetensi Keahlian RPL',
+    issuer: 'SMK Telkom Malang / BNSP',
     year: '2025',
-    credentialId: 'DICODING-FS-2025-091',
-    image: '/images/cert1.png',
-    tags: ['React', 'Node.js', 'REST API'],
+    credentialId: 'STC-RPL-2025-091',
+    image: '/images/certif4.png',
+    tags: ['Software Engineering', 'Full Stack'],
+    icon: Terminal,
   },
   {
     id: 'c3',
-    category: 'DEVOPS & CLOUD',
-    title: 'Docker & Linux System Administration',
-    issuer: 'SMK Telkom Competency Center',
-    year: '2024',
-    credentialId: 'STC-SYS-2024-114',
-    image: '/images/cert1.png',
-    tags: ['Docker', 'Nginx', 'Linux CLI'],
+    fileNo: 'CERT_03',
+    category: 'SPECIALIZATION',
+    title: 'Cloud & DevOps Competency Certificate',
+    issuer: 'Dicoding / Tech Skill Center',
+    year: '2025',
+    credentialId: 'STC-SYS-2025-114',
+    image: '/images/certif5.png',
+    tags: ['Docker', 'Nginx', 'Cloud Infrastructure'],
+    icon: Layers,
   },
+  {
+    id: 'c4',
+    fileNo: 'CERT_04',
+    category: 'COMPETITION',
+    title: 'Penghargaan Prestasi Lomba Kompetensi',
+    issuer: 'LKS / Instansi Pendidikan',
+    year: '2025',
+    credentialId: 'AWS-SA-2025-044',
+    image: '/images/certif6.png',
+    tags: ['First Winner', 'Speed Coding'],
+    icon: Sparkles,
+  },
+]
+
+// Dynamic wave offsets and rotations for organic fanned arch effect
+const waveStyles = [
+  { translateY: '14px', rotate: '-3.5deg' },
+  { translateY: '6px', rotate: '-2deg' },
+  { translateY: '-3px', rotate: '-0.8deg' },
+  { translateY: '-10px', rotate: '0deg' },
+  { translateY: '-3px', rotate: '0.8deg' },
+  { translateY: '6px', rotate: '2deg' },
+  { translateY: '14px', rotate: '3.5deg' },
 ]
 
 export function Projects() {
   const [activeTab, setActiveTab] = useState<'projects' | 'certificates'>('projects')
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const handleScroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === 'left' ? -350 : 350
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+  }
 
   return (
-    <section id="work" className="relative border-b border-border bg-zinc-950 py-24 md:py-32 overflow-hidden">
+    <section id="work" className="relative border-b border-border bg-zinc-950 py-20 md:py-28 overflow-hidden w-full">
       {/* Background Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/[0.04] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-primary/[0.05] blur-[160px] pointer-events-none" />
 
-      <div className="relative mx-auto max-w-6xl px-6">
-        {/* Section Header & Tab Controls */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <p className="font-mono text-xs uppercase tracking-widest text-primary mb-3">
-            03 — Portfolio Showcase
-          </p>
-          <h2 className="text-balance text-3xl font-bold tracking-tight text-white md:text-5xl mb-8">
-            Karya &amp; <span className="text-primary">Sertifikasi.</span>
+      {/* Header Container (Centered max-w-7xl) */}
+      <div className="relative mx-auto max-w-7xl px-4 md:px-8">
+        <div className="flex flex-col items-center text-center mb-10">
+          <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-primary mb-3 px-3.5 py-1 rounded-full border border-primary/20 bg-primary/10">
+            <Sparkles size={13} className="animate-spin" />
+            03 — Fullscreen Deck Archive
+          </div>
+          <h2 className="text-balance text-3xl font-extrabold tracking-tight text-white md:text-5xl mb-4">
+            Karya &amp; <span className="text-primary">Prestasi.</span>
           </h2>
+          <p className="text-zinc-400 font-mono text-xs md:text-sm max-w-xl mb-8">
+            Sorot kursor ke folder untuk membuka kunci &amp; membaca detail berkas.
+          </p>
 
-          {/* Toggle Buttons */}
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-zinc-900/90 p-1.5 backdrop-blur-md shadow-xl">
-            <button
-              onClick={() => setActiveTab('projects')}
-              className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                activeTab === 'projects'
-                  ? 'bg-primary text-black shadow-[0_0_25px_rgba(255,85,0,0.45)]'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <FolderGit2 size={16} />
-              Projects
-            </button>
+          {/* Toggle Buttons & Arrow Navigation Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="inline-flex items-center rounded-full border border-white/10 bg-zinc-900/90 p-1.5 backdrop-blur-md shadow-2xl">
+              <button
+                onClick={() => {
+                  setActiveTab('projects')
+                  setHoveredId(null)
+                }}
+                className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                  activeTab === 'projects'
+                    ? 'bg-primary text-black shadow-[0_0_25px_rgba(255,85,0,0.45)]'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <FolderGit2 size={16} />
+                Projects ({projectsData.length})
+              </button>
 
-            <button
-              onClick={() => setActiveTab('certificates')}
-              className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                activeTab === 'certificates'
-                  ? 'bg-primary text-black shadow-[0_0_25px_rgba(255,85,0,0.45)]'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <Award size={16} />
-              Certificate
-            </button>
+              <button
+                onClick={() => {
+                  setActiveTab('certificates')
+                  setHoveredId(null)
+                }}
+                className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                  activeTab === 'certificates'
+                    ? 'bg-primary text-black shadow-[0_0_25px_rgba(255,85,0,0.45)]'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <Award size={16} />
+                Prestasi / Sertifikat ({certificatesData.length})
+              </button>
+            </div>
+
+            {/* Scroll Navigation Arrows */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/90 p-1.5 backdrop-blur-md shadow-xl">
+              <button
+                onClick={() => handleScroll('left')}
+                title="Geser Kiri"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-zinc-800 text-zinc-300 hover:bg-primary hover:text-black transition-all duration-200 active:scale-95 shadow"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <span className="font-mono text-[10px] uppercase text-zinc-500 tracking-wider px-1">GESER</span>
+              <button
+                onClick={() => handleScroll('right')}
+                title="Geser Kanan"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-zinc-800 text-zinc-300 hover:bg-primary hover:text-black transition-all duration-200 active:scale-95 shadow"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Tab Content Display */}
-        {activeTab === 'projects' ? (
-          /* Projects Grid with Photo Cards */
-          <div className="grid gap-8 md:grid-cols-3 transition-all duration-500">
-            {projectsData.map((item) => (
-              <div
-                key={item.id}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:bg-zinc-900/90 hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_25px_rgba(255,85,0,0.15)]"
-              >
-                {/* Photo Banner Area */}
-                <div className="relative h-48 w-full overflow-hidden bg-zinc-950">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
-                  />
-                  {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/20 to-transparent" />
+      {/* FULL WIDTH DECK CONTAINER (100% Edge-to-Edge Screen Width) */}
+      <div className="relative group/deck w-full">
+        {/* Side Floating Quick Action Arrows */}
+        <button
+          onClick={() => handleScroll('left')}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-zinc-900/90 text-zinc-300 hover:bg-primary hover:text-black border border-white/10 backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
+          title="Geser Kiri"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={() => handleScroll('right')}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-zinc-900/90 text-zinc-300 hover:bg-primary hover:text-black border border-white/10 backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
+          title="Geser Kanan"
+        >
+          <ChevronRight size={24} />
+        </button>
 
-                  {/* Overlaid Category & Year Badges */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-primary border border-primary/30">
-                      {item.category}
-                    </span>
-                    <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-zinc-300 border border-white/10">
-                      {item.year}
-                    </span>
+        {/* Scrollable Wave Container spanning full screen width */}
+        <div
+          ref={scrollRef}
+          className="w-full overflow-x-auto py-12 px-6 sm:px-12 md:px-16 scroll-smooth no-scrollbar"
+        >
+          <div className="flex items-center justify-start xl:justify-center min-w-max -space-x-8 sm:-space-x-10 md:-space-x-12 px-4 pt-4 pb-6">
+            {(activeTab === 'projects' ? projectsData : certificatesData).map((item, index) => {
+              const isHovered = hoveredId === item.id
+              const waveStyle = waveStyles[index % waveStyles.length]
+
+              return (
+                <div
+                  key={item.id}
+                  onMouseEnter={() => setHoveredId(item.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className={`group relative flex-none w-[280px] sm:w-[310px] md:w-[330px] transition-all duration-300 ease-out cursor-pointer ${
+                    isHovered
+                      ? 'z-30 shadow-[0_20px_40px_rgba(0,0,0,0.95),0_0_30px_rgba(255,85,0,0.35)]'
+                      : 'z-10 shadow-xl'
+                  }`}
+                  style={{
+                    transform: isHovered
+                      ? 'translateY(-14px) rotate(0deg)'
+                      : `translateY(${waveStyle.translateY}) rotate(${waveStyle.rotate})`,
+                  }}
+                >
+                  {/* Folder Tab Header */}
+                  <div className="flex items-end justify-between px-2">
+                    <div
+                      className={`relative flex items-center gap-2 rounded-t-xl px-4 py-2 font-mono text-[11px] font-bold tracking-wider transition-all duration-300 border border-b-0 ${
+                        isHovered
+                          ? 'border-primary bg-primary text-black shadow-[0_-3px_10px_rgba(255,85,0,0.4)]'
+                          : 'border-zinc-700 bg-zinc-800 text-zinc-300 group-hover:border-primary/80 group-hover:bg-zinc-750'
+                      }`}
+                    >
+                      <Folder size={14} className={isHovered ? 'text-black fill-black' : 'text-primary fill-primary/40'} />
+                      <span>{item.fileNo}</span>
+                    </div>
+                    <span className="font-mono text-[10px] text-zinc-400 px-2 py-1 font-semibold">#0{index + 1}</span>
+                  </div>
+
+                  {/* Folder Card Body */}
+                  <div
+                    className={`relative flex flex-col justify-between overflow-hidden rounded-2xl rounded-tl-none border transition-all duration-300 min-h-[380px] ${
+                      isHovered
+                        ? 'border-primary bg-zinc-900/95 ring-1 ring-primary/40'
+                        : 'border-zinc-700/80 bg-zinc-900 group-hover:border-primary/60 shadow-2xl'
+                    }`}
+                  >
+                    {/* Minimalist Lock/Eye Cover - High Contrast Card Background (Shown when NOT hovered) */}
+                    <div
+                      className={`absolute inset-0 z-20 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-zinc-800 via-zinc-900 to-zinc-950 transition-all duration-300 ${
+                        isHovered ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'
+                      }`}
+                    >
+                      {/* Centered Lock Icon with Glowing Ring */}
+                      <div className="relative flex flex-col items-center justify-center">
+                        <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl animate-pulse" />
+                        <div className="relative flex items-center justify-center h-20 w-20 rounded-2xl bg-zinc-900/90 border border-primary/40 text-primary shadow-[0_0_30px_rgba(255,85,0,0.25)] group-hover:border-primary group-hover:scale-110 transition-all duration-300">
+                          <Lock size={36} className="text-primary" />
+                        </div>
+                        
+                        <div className="mt-6 flex items-center gap-2 font-mono text-xs font-bold text-zinc-400 uppercase tracking-widest group-hover:text-primary transition-colors">
+                          <Eye size={14} className="text-primary animate-bounce" />
+                          <span>HOVER TO UNLOCK</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Detailed Content (Revealed when HOVERED) */}
+                    <div
+                      className={`flex flex-col justify-between flex-1 transition-all duration-300 ${
+                        isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                      }`}
+                    >
+                      {/* Photo Banner Area */}
+                      <div className="relative h-44 w-full overflow-hidden bg-zinc-950">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className="object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/30 to-transparent" />
+                        <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-black/80 text-primary border border-primary/40">
+                            {item.category}
+                          </span>
+                          <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-black/80 text-zinc-300 border border-white/10">
+                            {item.year}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Card Info Body */}
+                      <div className="flex flex-1 flex-col justify-between p-5">
+                        <div>
+                          <h3 className="text-base font-bold text-white mb-2 leading-snug text-primary">
+                            {item.title}
+                          </h3>
+
+                          {activeTab === 'projects' ? (
+                            <div className="inline-flex items-center gap-1.5 font-mono text-[11px] text-zinc-400 mb-3">
+                              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                              {(item as typeof projectsData[0]).status}
+                            </div>
+                          ) : (
+                            <p className="font-mono text-xs text-zinc-400 mb-3">
+                              Penerbit: <span className="text-zinc-200 font-semibold">{(item as typeof certificatesData[0]).issuer}</span>
+                            </p>
+                          )}
+                        </div>
+
+                        <div>
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-1 border-t border-white/10 pt-3 mb-3">
+                            {item.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="rounded border border-primary/20 bg-primary/5 px-2 py-0.5 font-mono text-[9px] text-primary"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+
+                          {/* Action Button */}
+                          <div className="flex items-center justify-between font-mono text-xs font-bold text-black bg-primary rounded-lg px-3 py-2 shadow-md">
+                            <span>{activeTab === 'projects' ? 'Lihat Proyek' : 'Verifikasi'}</span>
+                            {activeTab === 'projects' ? (
+                              <ArrowUpRight size={15} />
+                            ) : (
+                              <ExternalLink size={15} />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-
-                {/* Card Body */}
-                <div className="flex flex-1 flex-col justify-between p-6 pt-4">
-                  <div>
-                    <h3 className="text-lg font-bold tracking-tight text-white group-hover:text-primary transition-colors mb-3 leading-snug">
-                      {item.title}
-                    </h3>
-
-                    {/* Status Pill */}
-                    <div className="inline-flex items-center gap-1.5 font-mono text-[11px] text-zinc-400 mb-5">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                      {item.status}
-                    </div>
-                  </div>
-
-                  <div>
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5 border-t border-white/10 pt-4 mb-4">
-                      {item.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-zinc-300"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Action Link */}
-                    <div className="flex items-center justify-between font-mono text-xs font-semibold text-primary pt-2 border-t border-white/5 group-hover:underline">
-                      <span>Lihat Proyek</span>
-                      <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
-        ) : (
-          /* Certificates Grid with Photo Cards */
-          <div className="grid gap-8 md:grid-cols-3 transition-all duration-500">
-            {certificatesData.map((item) => (
-              <div
-                key={item.id}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/70 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:bg-zinc-900/90 hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_25px_rgba(255,85,0,0.15)]"
-              >
-                {/* Photo Banner Area */}
-                <div className="relative h-48 w-full overflow-hidden bg-zinc-950">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
-                  />
-                  {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/20 to-transparent" />
-
-                  {/* Overlaid Category & Year Badges */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-amber-400 border border-amber-500/30 flex items-center gap-1">
-                      <ShieldCheck size={12} />
-                      {item.category}
-                    </span>
-                    <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-zinc-300 border border-white/10">
-                      {item.year}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Body */}
-                <div className="flex flex-1 flex-col justify-between p-6 pt-4">
-                  <div>
-                    <h3 className="text-lg font-bold tracking-tight text-white group-hover:text-primary transition-colors mb-2 leading-snug">
-                      {item.title}
-                    </h3>
-
-                    <p className="font-mono text-xs text-zinc-400 mb-4">
-                      Penerbit: <span className="text-zinc-200 font-semibold">{item.issuer}</span>
-                    </p>
-                  </div>
-
-                  <div>
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5 border-t border-white/10 pt-4 mb-4">
-                      {item.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-zinc-300"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Action Link */}
-                    <div className="flex items-center justify-between font-mono text-xs font-semibold text-amber-400 pt-2 border-t border-white/5 group-hover:underline">
-                      <span>Verifikasi Sertifikat</span>
-                      <ExternalLink size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        </div>
       </div>
     </section>
   )
