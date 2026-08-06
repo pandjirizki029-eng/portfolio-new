@@ -86,10 +86,12 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: color-mix(in sgb, var(--ring) 50%, transparent);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }
 
@@ -126,4 +128,60 @@
 .animate-marquee-left:hover,
 .animate-marquee-right:hover {
   animation-play-state: paused;
+}
+
+/* ── About Me: Rotating gradient border for profile image ── */
+@keyframes border-spin {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.animate-border-spin {
+  animation: border-spin 6s linear infinite;
+}
+
+/* ── About Me: Floating tool icons animation ── */
+@keyframes floatTool {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateY(-12px) translateX(5px) rotate(8deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-6px) translateX(-4px) rotate(-5deg);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translateY(-15px) translateX(3px) rotate(12deg);
+    opacity: 1;
+  }
+}
+
+/* ── Intro Splash: Floating particles ── */
+@keyframes introParticle {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-40px) translateX(15px);
+    opacity: 0.4;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-80px) translateX(-10px);
+    opacity: 0;
+  }
 }
