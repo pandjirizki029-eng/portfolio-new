@@ -5,28 +5,55 @@ export function Hero() {
   return (
     <section id="top" className="relative border-b border-border overflow-visible">
 
-      {/* Background ambient glow & Large background typography */}
+      {/* ── Reference-Inspired Top Spotlight & Atmospheric Beam ── */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden select-none">
-        <div className="absolute right-1/4 top-1/2 -translate-y-1/2 h-[60%] w-[35%] rounded-full bg-primary/6 blur-[120px]" />
+        {/* Top Edge Light Source / Lamp Flare */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 max-w-2xl h-[3px] bg-gradient-to-r from-transparent via-primary/80 to-transparent blur-[2px]" />
+        <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-[500px] h-32 rounded-full bg-white/20 blur-3xl" />
+
+        {/* Conical / Radial Downward Spotlight Beam */}
+        <div 
+          className="absolute -top-12 left-1/2 -translate-x-1/2 w-[160%] max-w-6xl h-[420px] md:h-[500px] opacity-90"
+          style={{
+            background: 'radial-gradient(ellipse 70% 90% at 50% 0%, rgba(255,255,255,0.16) 0%, rgba(255,115,0,0.09) 35%, rgba(255,85,0,0.02) 65%, transparent 85%)',
+            filter: 'blur(10px)',
+          }}
+        />
+
+        {/* Ambient warm secondary glow on the right */}
+        <div className="absolute right-1/4 top-1/2 -translate-y-1/2 h-[55%] w-[35%] rounded-full bg-primary/6 blur-[120px]" />
         
-        {/* Large background typography */}
-        <div className="absolute inset-0 flex flex-col justify-between py-4 px-2 md:px-8 opacity-35 pointer-events-none">
-          <span className="font-black text-[12vw] sm:text-[13vw] md:text-[14vw] leading-none tracking-tighter text-white/40 blur-[1px] uppercase select-none whitespace-nowrap -translate-x-2">
-            CLOUD ENGINEER
-          </span>
-          <span className="font-black text-[14vw] sm:text-[15vw] md:text-[17vw] leading-none tracking-tighter text-primary/60 blur-[1px] uppercase select-none whitespace-nowrap self-end translate-x-4">
-            DEVOPS
-          </span>
+        {/* Sleek Top Background Typography bathed in the spotlight (Reference: Think.Design.Create -> Think.Code.Deploy) */}
+        <div className="absolute top-5 sm:top-7 md:top-8 left-0 right-0 flex justify-center items-center pointer-events-none px-4 z-0">
+          <h2 className="flex items-center justify-center font-bold tracking-tight text-[8vw] sm:text-[7vw] md:text-[5.8vw] lg:text-[72px] xl:text-[84px] select-none leading-none">
+            <span className="bg-gradient-to-b from-white/75 via-white/35 to-white/5 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+              Think
+            </span>
+            <span className="mx-1.5 sm:mx-2.5 md:mx-3 text-primary/80 font-normal drop-shadow-[0_0_12px_rgba(255,85,0,0.6)]">
+              .
+            </span>
+            <span className="bg-gradient-to-b from-white/75 via-white/35 to-white/5 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+              Code
+            </span>
+            <span className="mx-1.5 sm:mx-2.5 md:mx-3 text-primary/80 font-normal drop-shadow-[0_0_12px_rgba(255,85,0,0.6)]">
+              .
+            </span>
+            <span className="bg-gradient-to-b from-white/75 via-white/35 to-white/5 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+              Deploy
+            </span>
+          </h2>
         </div>
 
-        <div className="absolute inset-y-0 left-0 w-1/5 bg-gradient-to-r from-background to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-1/5 bg-gradient-to-l from-background to-transparent" />
+        {/* Vignette gradients on edges for smooth blending */}
+        <div className="absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-background to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
 
         {/* 2-column layout: LEFT text | RIGHT lanyard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 pt-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 pt-20 sm:pt-24 md:pt-28">
 
           {/* ── LEFT: all text content ── */}
           <div className="flex flex-col justify-center gap-6 pb-10 md:pb-16">
