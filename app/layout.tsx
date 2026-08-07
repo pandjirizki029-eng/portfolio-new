@@ -16,8 +16,18 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'Muhammad Pandji Ar Rizky Munib — Portfolio',
   description:
-    'Siswa SMK Telkom (2024 - 2028). Portfolio dan karya Muhammad Pandji Ar Rizky Munib dalam bidang pengembangan perangkat lunak dan teknologi.',
+    'Siswa SMK Telkom Sidoarjo (2024 - 2028). Portfolio dan karya Muhammad Pandji Ar Rizky Munib dalam bidang pengembangan perangkat lunak dan teknologi.',
   generator: 'v0.app',
+  icons: {
+    icon: [
+      { url: '/images/logo-porto.png' },
+      { url: '/app/icon.png', type: 'image/png' },
+    ],
+    shortcut: ['/images/logo-porto.png'],
+    apple: [
+      { url: '/images/logo-porto.png' },
+    ],
+  },
 }
 
 export const viewport: Viewport = {

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 
 const links = [
@@ -18,9 +19,19 @@ export function SiteNav() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
           href="#top"
-          className="font-mono text-sm font-bold tracking-tight uppercase"
+          className="group flex items-center transition-transform hover:scale-105"
+          aria-label="Home"
         >
-          PANDJI<span className="text-primary">.</span>
+          <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-white/5 p-1 transition-all group-hover:border-primary/50 group-hover:bg-white/10 group-hover:shadow-[0_0_15px_rgba(255,85,0,0.25)]">
+            <Image
+              src="/images/logo-porto.png"
+              alt="Logo"
+              width={32}
+              height={32}
+              className="h-full w-full object-contain"
+              priority
+            />
+          </div>
         </a>
 
         <ul className="hidden items-center gap-8 md:flex">
