@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   FolderGit2,
   Award,
@@ -22,87 +23,21 @@ import {
   Cloud,
   Bot,
 } from 'lucide-react'
+import { projectsData as sharedProjectsData } from '@/lib/projects-data'
 
-/* ── 7 Real Projects with Custom Titles & User Images ── */
-const projectsData = [
-  {
-    id: 'p1',
-    fileNo: 'FILE_01',
-    category: 'WEB APPLICATION',
-    title: 'ProductivityFlow Management App',
-    year: '2026',
-    status: 'Active',
-    image: '/images/project1.png',
-    tags: ['Next.js', 'TypeScript', 'Tailwind', 'Kanban'],
-    icon: Globe,
-  },
-  {
-    id: 'p2',
-    fileNo: 'FILE_02',
-    category: '3D GRAPHICS & WEBGL',
-    title: 'Interactive 3D Virtual Museum Engine',
-    year: '2025',
-    status: 'Completed',
-    image: '/images/project2.png',
-    tags: ['Three.js', 'React Three Fiber', 'WebGL'],
-    icon: Cpu,
-  },
-  {
-    id: 'p3',
-    fileNo: 'FILE_03',
-    category: 'SCHOOL ARCHITECTURE',
-    title: 'SMK Telkom Academic & Student Portal',
-    year: '2024',
-    status: 'Completed',
-    image: '/images/project3.png',
-    tags: ['PHP', 'Laravel', 'MySQL', 'Tailwind'],
-    icon: Terminal,
-  },
-  {
-    id: 'p4',
-    fileNo: 'FILE_04',
-    category: 'DEVOPS & CONTAINER',
-    title: 'Implementasi Laravel dengan Redis & MySQL Menggunakan Docker',
-    year: '2025',
-    status: 'Completed',
-    image: '/images/project4.png',
-    tags: ['Docker', 'Laravel', 'Redis', 'MySQL'],
-    icon: Layers,
-  },
-  {
-    id: 'p5',
-    fileNo: 'FILE_05',
-    category: 'NETWORKING & SERVER',
-    title: 'Website Load Balancer Menggunakan Nginx',
-    year: '2025',
-    status: 'Completed',
-    image: '/images/project5.png',
-    tags: ['Nginx', 'Load Balancer', 'Linux', 'Reverse Proxy'],
-    icon: Server,
-  },
-  {
-    id: 'p6',
-    fileNo: 'FILE_06',
-    category: 'ARTIFICIAL INTELLIGENCE',
-    title: 'Interactive Chatbot AI Engine',
-    year: '2025',
-    status: 'Active',
-    image: '/images/project6.png',
-    tags: ['AI Chatbot', 'Python', 'React', 'OpenAI API'],
-    icon: Bot,
-  },
-  {
-    id: 'p7',
-    fileNo: 'FILE_07',
-    category: 'CLOUD & DEPLOYMENT',
-    title: 'Deploy HTTPS Server via VPS & Tunneling Cloudflare',
-    year: '2025',
-    status: 'Completed',
-    image: '/images/project7.png',
-    tags: ['Cloudflare', 'VPS', 'Tunneling', 'HTTPS / SSL'],
-    icon: Cloud,
-  },
-]
+/* ── 8 Real Projects with Custom Titles & User Images ── */
+const projectsData = sharedProjectsData.map((p) => ({
+  id: p.id,
+  slug: p.slug,
+  fileNo: p.fileNo,
+  category: p.category,
+  title: p.title,
+  year: p.year,
+  status: p.status,
+  image: p.image,
+  tags: p.tags,
+  icon: p.icon,
+}))
 
 /* ── 4 Certificates with User Images ── */
 const certificatesData = [
@@ -399,14 +334,17 @@ export function Projects() {
                           </div>
 
                           {/* Action Button */}
-                          <div className="flex items-center justify-between font-mono text-xs font-bold text-black bg-primary rounded-lg px-3 py-2 shadow-md">
-                            <span>{activeTab === 'projects' ? 'Lihat Proyek' : 'Verifikasi'}</span>
-                            {activeTab === 'projects' ? (
+                          {activeTab === 'projects' && 'slug' in item ? (
+                            <Link href={`/project/${(item as typeof projectsData[0]).slug}`} className="flex items-center justify-between font-mono text-xs font-bold text-black bg-primary rounded-lg px-3 py-2 shadow-md hover:brightness-110 transition-all">
+                              <span>Lihat Proyek</span>
                               <ArrowUpRight size={15} />
-                            ) : (
+                            </Link>
+                          ) : (
+                            <div className="flex items-center justify-between font-mono text-xs font-bold text-black bg-primary rounded-lg px-3 py-2 shadow-md">
+                              <span>Verifikasi</span>
                               <ExternalLink size={15} />
-                            )}
-                          </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
