@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { SmoothScrolling } from '@/components/smooth-scrolling'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -46,7 +47,9 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-background`}
     >
       <body className="font-sans antialiased">
-        {children}
+        <SmoothScrolling>
+          {children}
+        </SmoothScrolling>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
