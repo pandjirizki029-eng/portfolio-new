@@ -2,6 +2,7 @@ import { SiteNav } from '@/components/site-nav'
 import { Hero } from '@/components/hero'
 import { AboutMe } from '@/components/about-me'
 import { About } from '@/components/about'
+import { LinuxCloud } from '@/components/linux-cloud'
 import { Experience } from '@/components/experience'
 import { Projects } from '@/components/projects'
 import { Contact } from '@/components/contact'
@@ -16,6 +17,7 @@ export default function Page() {
         <Hero />
         <AboutMe />
         <About />
+        <LinuxCloud />
         <Experience />
         <Projects />
         <Contact />
