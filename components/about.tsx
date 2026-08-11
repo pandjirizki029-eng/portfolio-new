@@ -398,34 +398,50 @@ export function About() {
         </div>
       </div>
 
-      {/* FULL WIDTH Orange Angled Ribbon Marquee (100% Screen Edge-to-Edge) */}
-      <div className="relative w-full overflow-hidden py-10 my-4">
+      {/* FULL WIDTH Subtle Angled Ribbon Marquee */}
+      <div className="relative w-full overflow-hidden py-10 my-4 opacity-70">
         {/* Top Angled Ribbon */}
-        <div className="relative z-10 -rotate-2 transform bg-[#ff5500] py-3.5 shadow-lg border-y border-white/20 w-[110%] -left-[5%]">
+        <div className="relative z-10 -rotate-2 transform bg-zinc-950 py-3 border-y border-white/5 w-[110%] -left-[5%]">
           <div className="animate-marquee-left flex items-center whitespace-nowrap">
-            {[...ribbonItems1, ...ribbonItems1, ...ribbonItems1, ...ribbonItems1].map((item, idx) => (
-              <span
-                key={idx}
-                className="mx-3 flex items-center font-mono text-xs md:text-sm font-extrabold uppercase tracking-widest text-black"
+            {[0, 1, 2, 3].map((listIdx) => (
+              <ul
+                key={listIdx}
+                className="flex items-center m-0 p-0 list-none"
+                aria-hidden={listIdx !== 0 ? "true" : undefined}
               >
-                {item}
-                <span className="ml-6 text-black/70 font-black">✦</span>
-              </span>
+                {ribbonItems1.map((item, idx) => (
+                  <li
+                    key={idx}
+                    className="mx-3 flex items-center font-mono text-xs font-medium uppercase tracking-widest text-zinc-500"
+                  >
+                    {item}
+                    <span className="ml-6 text-primary/30">✦</span>
+                  </li>
+                ))}
+              </ul>
             ))}
           </div>
         </div>
 
         {/* Bottom Angled Ribbon (Crossing over) */}
-        <div className="relative z-20 -mt-7 rotate-2 transform bg-[#ff6b00] py-3.5 shadow-2xl border-y border-white/20 w-[110%] -left-[5%]">
+        <div className="relative z-20 -mt-5 rotate-2 transform bg-zinc-900/50 py-3 border-y border-white/5 w-[110%] -left-[5%] backdrop-blur-sm">
           <div className="animate-marquee-right flex items-center whitespace-nowrap">
-            {[...ribbonItems2, ...ribbonItems2, ...ribbonItems2, ...ribbonItems2].map((item, idx) => (
-              <span
-                key={idx}
-                className="mx-3 flex items-center font-mono text-xs md:text-sm font-extrabold uppercase tracking-widest text-black"
+            {[0, 1, 2, 3].map((listIdx) => (
+              <ul
+                key={listIdx}
+                className="flex items-center m-0 p-0 list-none"
+                aria-hidden={listIdx !== 0 ? "true" : undefined}
               >
-                {item}
-                <span className="ml-6 text-black/70 font-black">★</span>
-              </span>
+                {ribbonItems2.map((item, idx) => (
+                  <li
+                    key={idx}
+                    className="mx-3 flex items-center font-mono text-xs font-medium uppercase tracking-widest text-zinc-500"
+                  >
+                    {item}
+                    <span className="ml-6 text-primary/30">★</span>
+                  </li>
+                ))}
+              </ul>
             ))}
           </div>
         </div>

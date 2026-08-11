@@ -5,47 +5,24 @@ export function Hero() {
   return (
     <section id="top" className="relative border-b border-border overflow-visible">
 
-      {/* ── Reference-Inspired Top Spotlight & Atmospheric Beam ── */}
+      {/* ── Minimalist Tech Background ── */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden select-none">
-        {/* Top Edge Light Source / Lamp Flare */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-white/60 to-transparent" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 max-w-2xl h-[3px] bg-gradient-to-r from-transparent via-primary/80 to-transparent blur-[2px]" />
-        <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-[500px] h-32 rounded-full bg-white/20 blur-3xl" />
-
-        {/* Conical / Radial Downward Spotlight Beam */}
-        <div 
-          className="absolute -top-12 left-1/2 -translate-x-1/2 w-[160%] max-w-6xl h-[420px] md:h-[500px] opacity-90"
-          style={{
-            background: 'radial-gradient(ellipse 70% 90% at 50% 0%, rgba(255,255,255,0.16) 0%, rgba(255,115,0,0.09) 35%, rgba(255,85,0,0.02) 65%, transparent 85%)',
-            filter: 'blur(10px)',
-          }}
-        />
-
-        {/* Ambient warm secondary glow on the right */}
-        <div className="absolute right-1/4 top-1/2 -translate-y-1/2 h-[55%] w-[35%] rounded-full bg-primary/6 blur-[120px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:24px_24px]" />
         
-        {/* Sleek Top Background Typography bathed in the spotlight (Reference: Think.Design.Create -> Think.Code.Deploy) */}
-        <div className="absolute top-5 sm:top-7 md:top-8 left-0 right-0 flex justify-center items-center pointer-events-none px-4 z-0">
-          <h2 className="flex items-center justify-center font-bold tracking-tight text-[8vw] sm:text-[7vw] md:text-[5.8vw] lg:text-[72px] xl:text-[84px] select-none leading-none">
-            <span className="bg-gradient-to-b from-white/75 via-white/35 to-white/5 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-              Think
-            </span>
-            <span className="mx-1.5 sm:mx-2.5 md:mx-3 text-primary/80 font-normal drop-shadow-[0_0_12px_rgba(255,85,0,0.6)]">
-              .
-            </span>
-            <span className="bg-gradient-to-b from-white/75 via-white/35 to-white/5 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-              Code
-            </span>
-            <span className="mx-1.5 sm:mx-2.5 md:mx-3 text-primary/80 font-normal drop-shadow-[0_0_12px_rgba(255,85,0,0.6)]">
-              .
-            </span>
-            <span className="bg-gradient-to-b from-white/75 via-white/35 to-white/5 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-              Deploy
-            </span>
+        {/* Subtle top edge */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        
+        {/* Faint ambient glow */}
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-32 rounded-full bg-primary/5 blur-3xl" />
+        
+        {/* Sleek Top Background Typography (Faint Watermark) */}
+        <div className="absolute top-8 sm:top-10 left-0 right-0 flex justify-center items-center pointer-events-none px-4 z-0 opacity-20">
+          <h2 className="flex items-center justify-center font-mono font-bold tracking-widest text-[5vw] sm:text-[4vw] md:text-[3vw] lg:text-[48px] select-none text-white/10 uppercase">
+            Think <span className="mx-4 text-primary/30">/</span> Code <span className="mx-4 text-primary/30">/</span> Deploy
           </h2>
         </div>
 
-        {/* Vignette gradients on edges for smooth blending */}
+        {/* Vignette gradients */}
         <div className="absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-background to-transparent" />
         <div className="absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-background to-transparent" />
       </div>
@@ -65,7 +42,7 @@ export function Hero() {
               </p>
               <h1 className="font-black leading-[0.88] tracking-tighter">
                 <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl text-foreground/90">
-                  Muhammad Pandji
+                  Muhammad Pandji{' '}
                 </span>
                 <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl text-primary italic">
                   Ar Rizky Munib
@@ -97,7 +74,7 @@ export function Hero() {
             {/* Description + CTA */}
             <div className="flex flex-col gap-4">
               <p className="text-sm leading-relaxed text-muted-foreground max-w-[340px]">
-                Saya membangun aplikasi web modern yang intuitif, memecahkan masalah nyata, dan menghadirkan pengalaman digital yang bermakna.
+                Siswa SMK Telkom Sidoarjo jurusan SIJA. Spesialisasi saya ada pada arsitektur Cloud, DevOps, dan web development—membangun infrastruktur yang andal dan aplikasi yang mengatasi tantangan riil.
               </p>
               <a
                 href="#work"
@@ -124,7 +101,7 @@ export function Hero() {
               { value: '2024', label: 'Perjalanan Dimulai' },
               { value: '2028', label: 'Target Kelulusan' },
               { value: 'SMK Telkom', label: 'Institusi' },
-              { value: '10+', label: 'Proyek Dikerjakan' },
+              { value: '8+', label: 'Proyek Dikerjakan' },
             ].map((stat) => (
               <div key={stat.label}>
                 <div className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">

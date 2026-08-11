@@ -13,6 +13,9 @@ import {
   Quote,
   Sparkles,
   ChevronRight,
+  Server,
+  Terminal,
+  Cloud,
 } from 'lucide-react'
 
 
@@ -21,43 +24,44 @@ import {
 const traits = [
   {
     icon: Rocket,
-    title: 'Ambisi',
-    description: 'Selalu ingin berkembang dan belajar hal baru setiap hari.',
+    title: 'Infrastruktur',
+    description: 'Dari merakit server Linux hingga orkestrasi Docker & Nginx untuk deployment.',
     delay: 0,
   },
   {
     icon: Heart,
-    title: 'Passion',
-    description: 'Cinta pada proses coding dan memecahkan masalah kompleks.',
+    title: 'Problem Solving',
+    description: 'Menikmati tantangan memecahkan error 500 dan menemukan bottleneck performa.',
     delay: 100,
   },
   {
     icon: Zap,
-    title: 'Efisiensi',
-    description: 'Mengutamakan kode yang bersih, cepat, dan maintainable.',
+    title: 'Scalability',
+    description: 'Merancang arsitektur sistem yang ringan, cepat, dan siap untuk traffic tinggi.',
     delay: 200,
   },
   {
     icon: Target,
-    title: 'Fokus',
-    description: 'Berkomitmen penuh pada setiap proyek yang dikerjakan.',
+    title: 'Eksplorasi',
+    description: 'Terus bereksperimen dengan AI chatbot, 3D WebGL, hingga serverless computing.',
     delay: 300,
   },
 ]
 
 /* ── Personal interests / hobbies ── */
 const interests = [
-  { icon: Coffee, label: 'Coffee Enthusiast' },
-  { icon: Music, label: 'Lo-fi Listener' },
-  { icon: Gamepad2, label: 'Gamer' },
-  { icon: Globe, label: 'Tech Explorer' },
+  { icon: Server, label: 'SysAdmin Ops' },
+  { icon: Terminal, label: 'Linux Ricing' },
+  { icon: Cloud, label: 'Cloud Architecture' },
+  { icon: Target, label: 'CTF / Security' },
 ]
 
 /* ── Animated counter hook ── */
 function useCountUp(target: number, duration: number, start: boolean) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(target)
   useEffect(() => {
     if (!start) return
+    setCount(0)
     let startTime: number | null = null
     let raf: number
     const step = (timestamp: number) => {
@@ -128,7 +132,7 @@ export function AboutMe() {
   const quoteReveal = useReveal(0.2)
   const interestsReveal = useReveal(0.15)
 
-  const projectsCount = useCountUp(10, 1500, heroReveal.visible)
+  const projectsCount = useCountUp(8, 1500, heroReveal.visible)
   const techCount = useCountUp(12, 1500, heroReveal.visible)
   const yearsCount = useCountUp(2, 1200, heroReveal.visible)
 
@@ -294,9 +298,7 @@ export function AboutMe() {
 
             <blockquote className="relative z-10 max-w-3xl">
               <p className="text-lg md:text-2xl font-medium leading-relaxed tracking-tight text-white/90">
-                "Kode bukan sekadar instruksi untuk mesin, ia adalah cara kita 
-                berbicara dengan masa depan. Setiap proyek adalah sebuah cerita, dan 
-                setiap bug adalah pelajaran yang membuat kita lebih kuat."
+                "Bagi saya, kode adalah alat ukur yang paling jujur. Di saat sistem berjalan atau gagal, ia memberikan petunjuk yang pasti. Tugas kita sebagai engineer adalah membaca petunjuk itu untuk membangun solusi."
               </p>
             </blockquote>
 
