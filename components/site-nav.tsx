@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Sun, Moon } from 'lucide-react'
 
 const links = [
   { label: 'About', href: '#about' },
@@ -13,6 +13,27 @@ const links = [
 
 export function SiteNav() {
   const [open, setOpen] = useState(false)
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null
+    if (savedTheme === 'light') {
+      setTheme('light')
+      document.documentElement.classList.add('light')
+    }
+  }, [])
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(newTheme)
+    if (newTheme === 'light') {
+      document.documentElement.classList.add('light')
+      localStorage.setItem('theme', 'light')
+    } else {
+      document.documentElement.classList.remove('light')
+      localStorage.setItem('theme', 'dark')
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -22,7 +43,7 @@ export function SiteNav() {
           className="group flex items-center transition-transform hover:scale-105"
           aria-label="Home"
         >
-          <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-white/5 p-1 transition-all group-hover:border-primary/50 group-hover:bg-white/10 group-hover:shadow-[0_0_15px_rgba(255,85,0,0.25)]">
+          <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-border bg-secondary p-1 transition-all group-hover:border-primary/50 group-hover:bg-secondary group-hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.25)]">
             <Image
               src="/images/logo-porto.png"
               alt="Logo"
@@ -47,22 +68,41 @@ export function SiteNav() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className="hidden rounded-full bg-primary px-5 py-2 font-mono text-xs font-bold uppercase tracking-wide text-primary-foreground transition-opacity hover:opacity-90 md:inline-block"
-        >
-          Let&apos;s talk
-        </a>
+        <div className="hidden md:flex items-center gap-4">
+          <button
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-secondary text-muted-foreground transition-colors hover:text-foreground hover:bg-secondary"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          
+          <a
+            href="#contact"
+            className="rounded-full bg-primary px-5 py-2 font-mono text-xs font-bold uppercase tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            Let&apos;s talk
+          </a>
+        </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="text-foreground md:hidden"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          <button
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-secondary text-muted-foreground transition-colors hover:text-foreground hover:bg-secondary"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="text-foreground"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {open && (

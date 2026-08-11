@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 function NextjsIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-white">
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-foreground">
       <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.88 17.58L10.74 8.79V16.8H9.36V7.2h1.32l7.14 8.79V7.2h1.38v10.38h-1.32z"/>
     </svg>
   )
@@ -131,15 +131,15 @@ export function Lanyard() {
       `}</style>
 
       {/* Glow / Ambient background for the orbit */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-orange-600/[0.04] blur-[70px] pointer-events-none" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-primary/[0.05] blur-[70px] pointer-events-none" />
 
       {/* Orbit Path Dashed Ring */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[270px] h-[270px] rounded-full border border-dashed border-amber-500/12 pointer-events-none z-0" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[270px] h-[270px] rounded-full border border-dashed border-primary/20 pointer-events-none z-0" />
 
       {/* Center Profile Picture with double border (enlarged) */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-auto">
-        <div className="relative w-40 h-40 md:w-44 md:h-44 rounded-full p-1.5 bg-gradient-to-tr from-amber-500 via-orange-600 to-amber-400 shadow-[0_0_40px_rgba(249,115,22,0.18)] animate-pulse-slow">
-          <div className="w-full h-full rounded-full overflow-hidden border-4 border-zinc-950 bg-zinc-900">
+        <div className="relative w-40 h-40 md:w-44 md:h-44 rounded-full p-1.5 bg-gradient-to-tr from-primary/80 via-primary to-primary/60 shadow-[0_0_40px_rgba(var(--primary-rgb),0.18)] animate-pulse-slow">
+          <div className="w-full h-full rounded-full overflow-hidden border-4 border-background bg-card">
             <Image
               src="/images/profile2.png"
               alt="Muhammad Pandji"
@@ -182,12 +182,12 @@ export function Lanyard() {
                 } as React.CSSProperties}
               >
                 <div
-                  className="tech-icon-trigger relative flex items-center justify-center w-11 h-11 rounded-full border border-amber-500/30 bg-zinc-950 shadow-[0_0_15px_rgba(245,158,11,0.06),inset_0_1px_1px_rgba(255,255,255,0.05)] hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)] hover:scale-115 transition-all duration-300 group/item cursor-pointer"
+                  className="tech-icon-trigger relative flex items-center justify-center w-11 h-11 rounded-full border border-amber-500/30 bg-background shadow-[0_0_15px_rgba(245,158,11,0.06),inset_0_1px_1px_rgba(255,255,255,0.05)] hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)] hover:scale-115 transition-all duration-300 group/item cursor-pointer"
                 >
                   <tool.Icon />
 
                   {/* Tooltip */}
-                  <span className="absolute -bottom-8 scale-0 transition-all rounded bg-zinc-900 border border-white/10 px-2 py-1 text-[10px] font-mono text-zinc-200 group-hover/item:scale-100 shadow-lg pointer-events-none whitespace-nowrap z-30">
+                  <span className="absolute -bottom-8 scale-0 transition-all rounded bg-card border border-border px-2 py-1 text-[10px] font-mono text-foreground group-hover/item:scale-100 shadow-lg pointer-events-none whitespace-nowrap z-30">
                     {tool.name}
                   </span>
                 </div>

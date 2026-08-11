@@ -115,6 +115,11 @@ function SkillPlayground() {
       const W = rect.width
       const H = rect.height
 
+      const isLight = document.documentElement.classList.contains('light')
+      const defaultBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)'
+      const defaultBorder = isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.12)'
+      const defaultText = isLight ? 'rgba(0,0,0,0.85)' : 'rgba(255,255,255,0.75)'
+
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.clearRect(0, 0, W, H)
 
@@ -205,12 +210,12 @@ function SkillPlayground() {
           ? b.color + '35'
           : isHovered
             ? b.color + '25'
-            : 'rgba(255,255,255,0.04)'
+            : defaultBg
         ctx.strokeStyle = isBeingDragged
           ? b.color
           : isHovered
             ? b.color + 'aa'
-            : 'rgba(255,255,255,0.12)'
+            : defaultBorder
         ctx.lineWidth = isBeingDragged ? 1.5 : 1
 
         const r = 8
@@ -224,7 +229,7 @@ function SkillPlayground() {
         ctx.shadowOffsetY = 0
 
         // Text
-        ctx.fillStyle = isBeingDragged || isHovered ? b.color : 'rgba(255,255,255,0.75)'
+        ctx.fillStyle = isBeingDragged || isHovered ? b.color : defaultText
         ctx.font = 'bold 12px "JetBrains Mono", monospace'
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
@@ -334,7 +339,7 @@ function SkillPlayground() {
   }, [initBodies])
 
   return (
-    <div ref={containerRef} className="relative w-full h-[320px] md:h-[360px] rounded-2xl border border-white/8 bg-zinc-950/80 overflow-hidden select-none">
+    <div ref={containerRef} className="relative w-full h-[320px] md:h-[360px] rounded-2xl border border-white/8 bg-background/80 overflow-hidden select-none">
       {/* Corner decorations */}
       <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-primary/40 rounded-tl-2xl pointer-events-none z-10" />
       <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-primary/40 rounded-br-2xl pointer-events-none z-10" />
@@ -348,12 +353,12 @@ function SkillPlayground() {
       {/* Label */}
       <div className="absolute top-3 left-4 z-20 flex items-center gap-2 pointer-events-none">
         <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-zinc-500">Drag & play — interactive skills</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Drag & play — interactive skills</span>
       </div>
 
       {/* Skill count */}
       <div className="absolute top-3 right-4 z-20 pointer-events-none">
-        <span className="font-mono text-[10px] text-zinc-600">{allSkills.length} SKILLS</span>
+        <span className="font-mono text-[10px] text-muted-foreground">{allSkills.length} SKILLS</span>
       </div>
 
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
@@ -391,7 +396,7 @@ export function About() {
         <div className="mt-16 space-y-4">
           <div className="flex items-center gap-3 mb-2">
             <div className="h-px flex-1 bg-gradient-to-r from-primary/40 to-transparent" />
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 whitespace-nowrap">Tech Arsenal</span>
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground whitespace-nowrap">Tech Arsenal</span>
             <div className="h-px flex-1 bg-gradient-to-l from-primary/40 to-transparent" />
           </div>
           <SkillPlayground />
@@ -401,7 +406,7 @@ export function About() {
       {/* FULL WIDTH Subtle Angled Ribbon Marquee */}
       <div className="relative w-full overflow-hidden py-10 my-4 opacity-70">
         {/* Top Angled Ribbon */}
-        <div className="relative z-10 -rotate-2 transform bg-zinc-950 py-3 border-y border-white/5 w-[110%] -left-[5%]">
+        <div className="relative z-10 -rotate-2 transform bg-background py-3 border-y border-border w-[110%] -left-[5%]">
           <div className="animate-marquee-left flex items-center whitespace-nowrap">
             {[0, 1, 2, 3].map((listIdx) => (
               <ul
@@ -412,7 +417,7 @@ export function About() {
                 {ribbonItems1.map((item, idx) => (
                   <li
                     key={idx}
-                    className="mx-3 flex items-center font-mono text-xs font-medium uppercase tracking-widest text-zinc-500"
+                    className="mx-3 flex items-center font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground"
                   >
                     {item}
                     <span className="ml-6 text-primary/30">✦</span>
@@ -424,7 +429,7 @@ export function About() {
         </div>
 
         {/* Bottom Angled Ribbon (Crossing over) */}
-        <div className="relative z-20 -mt-5 rotate-2 transform bg-zinc-900/50 py-3 border-y border-white/5 w-[110%] -left-[5%] backdrop-blur-sm">
+        <div className="relative z-20 -mt-5 rotate-2 transform bg-card/50 py-3 border-y border-border w-[110%] -left-[5%] backdrop-blur-sm">
           <div className="animate-marquee-right flex items-center whitespace-nowrap">
             {[0, 1, 2, 3].map((listIdx) => (
               <ul
@@ -435,7 +440,7 @@ export function About() {
                 {ribbonItems2.map((item, idx) => (
                   <li
                     key={idx}
-                    className="mx-3 flex items-center font-mono text-xs font-medium uppercase tracking-widest text-zinc-500"
+                    className="mx-3 flex items-center font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground"
                   >
                     {item}
                     <span className="ml-6 text-primary/30">★</span>

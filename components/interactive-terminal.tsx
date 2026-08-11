@@ -13,7 +13,7 @@ export function InteractiveTerminal() {
     {
       cmd: 'welcome',
       output: (
-        <div className="text-zinc-400 mb-2">
+        <div className="text-[#8b949e] mb-2">
           <p>Welcome to PandjiOS v1.0.0 (tty1)</p>
           <p>Type <span className="text-primary font-bold">'help'</span> to see available commands.</p>
           <p>Try typing <span className="text-primary font-bold">'whoami'</span> to start.</p>
@@ -48,15 +48,15 @@ export function InteractiveTerminal() {
     switch (trimmedCmd) {
       case 'whoami':
         output = (
-          <div className="text-white space-y-2 mt-2 mb-4">
+          <div className="text-[#c9d1d9] space-y-2 mt-2 mb-4">
             <div className="font-bold text-xl text-primary animate-pulse">Hii! Aku Panji 👋</div>
-            <p className="text-zinc-300">
+            <p className="text-[#8b949e]">
               Nama lengkapku <span className="text-orange-400 font-semibold">Muhammad Pandji Ar Rizky Munib</span>.
             </p>
-            <p className="text-zinc-300">
+            <p className="text-[#8b949e]">
               Aku adalah seorang siswa jurusan <span className="text-sky-300">Sistem Informasi Jaringan dan Aplikasi (SIJA)</span> di SMK Telkom Sidoarjo.
             </p>
-            <p className="text-zinc-300">
+            <p className="text-[#8b949e]">
               Aku sangat tertarik dengan dunia <span className="text-purple-400">Linux, DevOps, dan Cloud Infrastructure</span>. 
               Membangun sistem yang reliable dan secure adalah passion utamaku!
             </p>
@@ -65,9 +65,9 @@ export function InteractiveTerminal() {
         break
       case 'help':
         output = (
-          <div className="text-zinc-300 space-y-1 mt-2 mb-4">
-            <p className="text-zinc-400 mb-2">Available commands:</p>
-            <div className="grid grid-cols-[100px_1fr] gap-2">
+          <div className="text-[#8b949e] space-y-1 mt-2 mb-4">
+            <p className="text-[#8b949e] mb-2">Available commands:</p>
+            <div className="grid grid-cols-[100px_1fr] gap-2 text-[#c9d1d9]">
               <span className="text-primary font-bold">whoami</span><span>Nampilin siapa aku sebenarnya</span>
               <span className="text-primary font-bold">skills</span><span>Lihat daftar skill dan tech stack</span>
               <span className="text-primary font-bold">socials</span><span>Daftar kontak dan sosial media</span>
@@ -79,9 +79,9 @@ export function InteractiveTerminal() {
         break
       case 'skills':
         output = (
-          <div className="text-zinc-300 space-y-2 mt-2 mb-4">
-            <p className="text-zinc-400 mb-2">My Tech Stack:</p>
-            <ul className="list-disc list-inside space-y-1">
+          <div className="text-[#8b949e] space-y-2 mt-2 mb-4">
+            <p className="text-[#8b949e] mb-2">My Tech Stack:</p>
+            <ul className="list-disc list-inside space-y-1 text-[#c9d1d9]">
               <li><span className="text-sky-400">OS:</span> Linux (Ubuntu, Debian)</li>
               <li><span className="text-blue-500">Containers:</span> Docker, Docker Compose</li>
               <li><span className="text-green-500">Web Server:</span> Nginx</li>
@@ -93,10 +93,10 @@ export function InteractiveTerminal() {
         break
       case 'socials':
         output = (
-          <div className="text-zinc-300 space-y-1 mt-2 mb-4">
-            <p><span className="text-zinc-500">GitHub:</span> <a href="#" className="text-primary hover:underline">github.com/pandjirizki</a></p>
-            <p><span className="text-zinc-500">LinkedIn:</span> <a href="#" className="text-primary hover:underline">linkedin.com/in/pandjirizki</a></p>
-            <p><span className="text-zinc-500">Email:</span> <a href="mailto:pandji@example.com" className="text-primary hover:underline">pandji@example.com</a></p>
+          <div className="text-[#8b949e] space-y-1 mt-2 mb-4">
+            <p><span className="text-[#8b949e]">GitHub:</span> <a href="#" className="text-primary hover:underline">github.com/pandjirizki</a></p>
+            <p><span className="text-[#8b949e]">LinkedIn:</span> <a href="#" className="text-primary hover:underline">linkedin.com/in/pandjirizki</a></p>
+            <p><span className="text-[#8b949e]">Email:</span> <a href="mailto:pandji@example.com" className="text-primary hover:underline">pandji@example.com</a></p>
           </div>
         )
         break
@@ -125,24 +125,24 @@ export function InteractiveTerminal() {
 
   return (
     <div 
-      className="w-full max-w-4xl mx-auto rounded-xl overflow-hidden border border-white/10 bg-[#0d1117] shadow-2xl font-mono text-sm shadow-primary/10 transition-all hover:shadow-primary/20"
+      className="w-full max-w-4xl mx-auto rounded-xl overflow-hidden border border-[#30363d] bg-[#0d1117] shadow-2xl font-mono text-sm shadow-primary/10 transition-all hover:shadow-primary/20"
       onClick={focusInput}
     >
       {/* Terminal Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-zinc-900/80 border-b border-white/10 select-none">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#161b22] border-b border-[#30363d] select-none">
         <div className="flex gap-2">
           <div className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-colors" />
           <div className="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-colors" />
           <div className="w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-colors" />
         </div>
-        <div className="flex items-center gap-2 text-zinc-400 text-xs font-semibold">
+        <div className="flex items-center gap-2 text-[#8b949e] text-xs font-semibold">
           <TerminalIcon size={14} />
           pandji@portfolio: ~
         </div>
-        <div className="flex gap-3 text-zinc-500">
-          <Minus size={14} className="hover:text-white cursor-pointer transition-colors" />
-          <Maximize2 size={14} className="hover:text-white cursor-pointer transition-colors" />
-          <X size={14} className="hover:text-white cursor-pointer transition-colors" />
+        <div className="flex gap-3 text-[#8b949e]">
+          <Minus size={14} className="hover:text-[#c9d1d9] cursor-pointer transition-colors" />
+          <Maximize2 size={14} className="hover:text-[#c9d1d9] cursor-pointer transition-colors" />
+          <X size={14} className="hover:text-[#c9d1d9] cursor-pointer transition-colors" />
         </div>
       </div>
 
@@ -154,11 +154,11 @@ export function InteractiveTerminal() {
         {history.map((item, i) => (
           <div key={i}>
             {item.cmd !== 'welcome' && (
-              <div className="flex items-center gap-2 text-zinc-100 mb-1">
+              <div className="flex items-center gap-2 text-[#c9d1d9] mb-1">
                 <span className="text-green-400 font-bold">pandji@portfolio</span>
-                <span className="text-white">:</span>
+                <span className="text-[#c9d1d9]">:</span>
                 <span className="text-blue-400 font-bold">~</span>
-                <span className="text-white">$</span>
+                <span className="text-[#c9d1d9]">$</span>
                 <span className="ml-1">{item.cmd}</span>
               </div>
             )}
@@ -167,17 +167,17 @@ export function InteractiveTerminal() {
         ))}
         
         {/* Current Input Line */}
-        <form onSubmit={handleCommand} className="flex items-center gap-2 text-zinc-100 mt-2">
+        <form onSubmit={handleCommand} className="flex items-center gap-2 text-[#c9d1d9] mt-2">
           <span className="text-green-400 font-bold whitespace-nowrap">pandji@portfolio</span>
-          <span className="text-white">:</span>
+          <span className="text-[#c9d1d9]">:</span>
           <span className="text-blue-400 font-bold">~</span>
-          <span className="text-white">$</span>
+          <span className="text-[#c9d1d9]">$</span>
           <input
             ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1 bg-transparent outline-none border-none text-zinc-100 caret-primary"
+            className="flex-1 bg-transparent outline-none border-none text-[#c9d1d9] caret-primary"
             spellCheck="false"
             autoComplete="off"
           />

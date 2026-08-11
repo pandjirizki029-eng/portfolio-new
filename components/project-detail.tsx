@@ -77,7 +77,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
   const Icon = project.icon
 
   return (
-    <div className="relative min-h-screen bg-zinc-950 text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* ── BG Grain Noise ── */}
       <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.028]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '128px' }} />
 
@@ -89,16 +89,16 @@ export function ProjectDetailView({ slug }: { slug: string }) {
 
         {/* Top nav bar */}
         <nav className={`relative z-30 flex items-center justify-between px-6 md:px-12 py-5 transition-all duration-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'}`}>
-          <Link href="/#work" className="group flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-zinc-400 hover:text-white transition-colors">
-            <span className="flex items-center justify-center h-9 w-9 rounded-full border border-white/10 bg-white/5 group-hover:border-white/30 group-hover:bg-white/10 transition-all">
+          <Link href="/#work" className="group flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">
+            <span className="flex items-center justify-center h-9 w-9 rounded-full border border-border bg-secondary group-hover:border-white/30 group-hover:bg-secondary transition-all">
               <ArrowLeft size={16} />
             </span>
             Kembali
           </Link>
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">{project.fileNo}</span>
-            <span className="h-1 w-1 rounded-full bg-zinc-600" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">{project.year}</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{project.fileNo}</span>
+            <span className="h-1 w-1 rounded-full bg-muted-foreground" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{project.year}</span>
           </div>
         </nav>
 
@@ -113,8 +113,8 @@ export function ProjectDetailView({ slug }: { slug: string }) {
                   <Icon size={13} />
                   {project.category}
                 </span>
-                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider ${project.status === 'Active' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' : 'bg-zinc-800 text-zinc-400 border border-zinc-700'}`}>
-                  <span className={`h-1.5 w-1.5 rounded-full ${project.status === 'Active' ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-500'}`} />
+                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider ${project.status === 'Active' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' : 'bg-muted text-muted-foreground border border-border'}`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${project.status === 'Active' ? 'bg-emerald-400 animate-pulse' : 'bg-muted-foreground'}`} />
                   {project.status}
                 </span>
               </div>
@@ -126,44 +126,44 @@ export function ProjectDetailView({ slug }: { slug: string }) {
               </div>
 
               {/* Description */}
-              <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-xl">{project.description}</p>
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed max-w-xl">{project.description}</p>
 
               {/* Meta pills */}
               <div className="flex flex-wrap gap-3">
-                <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-mono">
-                  <Calendar size={14} className="text-zinc-500" />
-                  <span className="text-zinc-300">{project.timeline}</span>
+                <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-card border border-border text-xs font-mono">
+                  <Calendar size={14} className="text-muted-foreground" />
+                  <span className="text-muted-foreground">{project.timeline}</span>
                 </div>
-                <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-mono">
-                  <User size={14} className="text-zinc-500" />
-                  <span className="text-zinc-300">{project.role}</span>
+                <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-card border border-border text-xs font-mono">
+                  <User size={14} className="text-muted-foreground" />
+                  <span className="text-muted-foreground">{project.role}</span>
                 </div>
               </div>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold border border-white/8 bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:border-white/15 transition-all cursor-default">{tag}</span>
+                  <span key={tag} className="px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold border border-white/8 bg-white/[0.04] text-muted-foreground hover:bg-white/[0.08] hover:border-white/15 transition-all cursor-default">{tag}</span>
                 ))}
               </div>
             </div>
 
             {/* Right — hero image with parallax */}
             <div className={`transition-all duration-1000 delay-500 ${loaded ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-12 scale-95'}`}>
-              <div ref={parallax.ref} style={{ ...parallax.style, transition: 'transform 0.15s ease-out' }} className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
+              <div ref={parallax.ref} style={{ ...parallax.style, transition: 'transform 0.15s ease-out' }} className="relative rounded-2xl overflow-hidden border border-border shadow-2xl group">
                 {/* Corner accents */}
                 <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 rounded-tl-2xl z-20 pointer-events-none" style={{ borderColor: `${project.color}60` }} />
                 <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 rounded-br-2xl z-20 pointer-events-none" style={{ borderColor: `${project.color}60` }} />
 
-                <div className="relative aspect-video bg-zinc-900">
+                <div className="relative aspect-video bg-card">
                   <Image src={project.image} alt={project.title} fill className="object-cover object-top" priority />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                 </div>
 
                 {/* Floating file label */}
-                <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-md border border-white/10">
+                <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-md border border-border">
                   <span className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: project.color }} />
-                  <span className="font-mono text-[10px] text-zinc-300 uppercase tracking-wider">{project.fileNo} — LIVE PREVIEW</span>
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">{project.fileNo} — LIVE PREVIEW</span>
                 </div>
               </div>
             </div>
@@ -172,7 +172,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
 
         {/* Scroll indicator */}
         <div className={`relative z-10 flex justify-center pb-8 transition-all duration-1000 delay-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="flex flex-col items-center gap-2 text-zinc-500">
+          <div className="flex flex-col items-center gap-2 text-muted-foreground">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em]">Scroll untuk detail</span>
             <ChevronDown size={16} className="animate-bounce" />
           </div>
@@ -180,7 +180,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
       </section>
 
       {/* ── Stats Bar ── */}
-      <section className="relative border-y border-white/8 bg-zinc-900/50 backdrop-blur-md">
+      <section className="relative border-y border-white/8 bg-card/50 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 grid grid-cols-3 gap-6">
           {[
             { label: 'Fitur', countHook: featCount, suffix: '+' },
@@ -191,7 +191,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
               <span className="text-3xl md:text-4xl font-extrabold tabular-nums" style={{ color: project.color }}>
                 {stat.countHook.count}{stat.suffix}
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-zinc-500 mt-1">{stat.label}</span>
+              <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground mt-1">{stat.label}</span>
             </div>
           ))}
         </div>
@@ -202,7 +202,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           {/* Section heading */}
           <div className="mb-16">
-            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 block mb-3">DEEP DIVE</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground block mb-3">DEEP DIVE</span>
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight">Tentang Proyek Ini</h2>
             <div className="h-1 w-16 rounded-full mt-4" style={{ backgroundColor: project.color }} />
           </div>
@@ -211,23 +211,23 @@ export function ProjectDetailView({ slug }: { slug: string }) {
             {/* Main content (3 cols) */}
             <div className="lg:col-span-3 space-y-12">
               {/* Long description */}
-              <div className="p-6 md:p-8 rounded-2xl bg-zinc-900/60 border border-white/6">
-                <p className="text-zinc-300 leading-[1.85] text-sm md:text-base">{project.longDescription}</p>
+              <div className="p-6 md:p-8 rounded-2xl bg-card/60 border border-white/6">
+                <p className="text-muted-foreground leading-[1.85] text-sm md:text-base">{project.longDescription}</p>
               </div>
 
               {/* Features */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center h-9 w-9 rounded-xl border border-white/10 bg-white/5">
+                  <div className="flex items-center justify-center h-9 w-9 rounded-xl border border-border bg-secondary">
                     <Zap size={16} style={{ color: project.color }} />
                   </div>
                   <h3 className="text-lg font-bold tracking-tight">Fitur Utama</h3>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {project.features.map((feat, i) => (
-                    <div key={i} className="group flex items-start gap-3 p-4 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-white/12 hover:bg-zinc-900/70 transition-all">
+                    <div key={i} className="group flex items-start gap-3 p-4 rounded-xl bg-card/40 border border-border hover:border-white/12 hover:bg-card/70 transition-all">
                       <CheckCircle2 size={16} className="mt-0.5 flex-none" style={{ color: project.color }} />
-                      <span className="text-sm text-zinc-300 leading-snug">{feat}</span>
+                      <span className="text-sm text-muted-foreground leading-snug">{feat}</span>
                     </div>
                   ))}
                 </div>
@@ -236,16 +236,16 @@ export function ProjectDetailView({ slug }: { slug: string }) {
               {/* Challenges */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center h-9 w-9 rounded-xl border border-white/10 bg-white/5">
+                  <div className="flex items-center justify-center h-9 w-9 rounded-xl border border-border bg-secondary">
                     <AlertTriangle size={16} className="text-amber-400" />
                   </div>
                   <h3 className="text-lg font-bold tracking-tight">Tantangan & Solusi</h3>
                 </div>
                 <div className="space-y-3">
                   {project.challenges.map((ch, i) => (
-                    <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-zinc-900/40 border border-white/5">
+                    <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-card/40 border border-border">
                       <span className="flex-none flex items-center justify-center h-7 w-7 rounded-lg bg-amber-500/10 text-amber-400 font-mono text-xs font-bold">{String(i + 1).padStart(2, '0')}</span>
-                      <span className="text-sm text-zinc-300 leading-snug">{ch}</span>
+                      <span className="text-sm text-muted-foreground leading-snug">{ch}</span>
                     </div>
                   ))}
                 </div>
@@ -255,26 +255,26 @@ export function ProjectDetailView({ slug }: { slug: string }) {
             {/* Sidebar (2 cols) */}
             <div className="lg:col-span-2 space-y-8">
               {/* Tech stack card */}
-              <div className="rounded-2xl border border-white/8 bg-zinc-900/50 overflow-hidden">
+              <div className="rounded-2xl border border-white/8 bg-card/50 overflow-hidden">
                 <div className="px-6 py-4 border-b border-white/6 flex items-center gap-3">
                   <Layers size={16} style={{ color: project.color }} />
                   <h3 className="text-sm font-bold uppercase tracking-wider">Tech Stack</h3>
                 </div>
                 <div className="p-4 space-y-2">
                   {project.techStack.map((tech, i) => (
-                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-all group">
+                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-border hover:bg-white/[0.06] transition-all group">
                       <div className="flex items-center gap-3">
                         <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: project.color }} />
-                        <span className="text-sm font-semibold text-white">{tech.name}</span>
+                        <span className="text-sm font-semibold text-foreground">{tech.name}</span>
                       </div>
-                      <span className="text-[11px] font-mono text-zinc-500 max-w-[140px] text-right leading-tight">{tech.role}</span>
+                      <span className="text-[11px] font-mono text-muted-foreground max-w-[140px] text-right leading-tight">{tech.role}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Project info card */}
-              <div className="rounded-2xl border border-white/8 bg-zinc-900/50 overflow-hidden">
+              <div className="rounded-2xl border border-white/8 bg-card/50 overflow-hidden">
                 <div className="px-6 py-4 border-b border-white/6">
                   <h3 className="text-sm font-bold uppercase tracking-wider">Info Proyek</h3>
                 </div>
@@ -286,9 +286,9 @@ export function ProjectDetailView({ slug }: { slug: string }) {
                     { label: 'Tahun', value: project.year },
                     { label: 'Kategori', value: project.category },
                   ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
-                      <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider">{item.label}</span>
-                      <span className="text-sm text-zinc-200 font-medium">{item.value}</span>
+                    <div key={item.label} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+                      <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">{item.label}</span>
+                      <span className="text-sm text-foreground font-medium">{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -307,8 +307,8 @@ export function ProjectDetailView({ slug }: { slug: string }) {
       {/* ── Footer ── */}
       <footer className="border-t border-white/6 py-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="font-mono text-[11px] text-zinc-600 uppercase tracking-widest">{project.fileNo} — {project.title}</span>
-          <Link href="/#work" className="font-mono text-[11px] text-zinc-500 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2">
+          <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest">{project.fileNo} — {project.title}</span>
+          <Link href="/#work" className="font-mono text-[11px] text-muted-foreground hover:text-foreground uppercase tracking-widest transition-colors flex items-center gap-2">
             <ArrowLeft size={12} />
             Kembali ke Portfolio
           </Link>

@@ -185,3 +185,40 @@
     opacity: 0;
   }
 }
+
+/* ── Light Mode Color Overrides ── */
+.light {
+  color-scheme: light;
+  --background: oklch(0.98 0.004 60); 
+  --foreground: oklch(0.14 0.004 60); 
+  --card: oklch(0.96 0.004 60);
+  --card-foreground: oklch(0.14 0.004 60);
+  --popover: oklch(0.96 0.004 60);
+  --popover-foreground: oklch(0.14 0.004 60);
+  
+  /* Primary becomes blue for light mode */
+  --primary: oklch(0.6 0.18 250); 
+  --primary-foreground: oklch(0.98 0.004 60);
+  --primary-rgb: 0, 85, 255;
+  
+  /* UI elements */
+  --secondary: oklch(0.92 0.006 60);
+  --secondary-foreground: oklch(0.14 0.004 60);
+  --muted: oklch(0.92 0.006 60);
+  --muted-foreground: oklch(0.4 0.006 60);
+  --accent: oklch(0.6 0.18 250);
+  --accent-foreground: oklch(0.98 0.004 60);
+  --border: oklch(0 0 0 / 12%);
+  --input: oklch(0 0 0 / 15%);
+  --ring: oklch(0.6 0.18 250);
+
+  /* Sidebar */
+  --sidebar: oklch(0.96 0.004 60);
+  --sidebar-foreground: oklch(0.14 0.004 60);
+  --sidebar-primary: oklch(0.6 0.18 250);
+  --sidebar-primary-foreground: oklch(0.98 0.004 60);
+  --sidebar-accent: oklch(0.92 0.006 60);
+  --sidebar-accent-foreground: oklch(0.14 0.004 60);
+  --sidebar-border: oklch(0 0 0 / 12%);
+  --sidebar-ring: oklch(0.6 0.18 250);
+}

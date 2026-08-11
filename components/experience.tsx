@@ -25,9 +25,9 @@ const journeyData = [
     tag: '#AwalPerjalanan',
     rotation: '-3.5deg',
     offsetY: 'md:mt-0',
-    color: 'from-amber-500/20 to-orange-500/10',
-    accentColor: 'text-amber-400',
-    borderColor: 'border-amber-500/30',
+    color: 'from-primary/20 to-primary/10',
+    accentColor: 'text-primary',
+    borderColor: 'border-primary/30',
     clipRotation: 'rotate-[-12deg]',
     delay: 0,
   },
@@ -43,9 +43,9 @@ const journeyData = [
     tag: '#FaseEksplorasi',
     rotation: '4deg',
     offsetY: 'md:mt-16',
-    color: 'from-orange-500/20 to-red-500/10',
-    accentColor: 'text-orange-400',
-    borderColor: 'border-orange-500/30',
+    color: 'from-primary/20 to-primary/10',
+    accentColor: 'text-primary',
+    borderColor: 'border-primary/30',
     clipRotation: 'rotate-[15deg]',
     delay: 150,
   },
@@ -61,9 +61,9 @@ const journeyData = [
     tag: '#SoftwareEng',
     rotation: '-2.5deg',
     offsetY: 'md:mt-4',
-    color: 'from-amber-400/20 to-yellow-500/10',
-    accentColor: 'text-amber-300',
-    borderColor: 'border-amber-400/30',
+    color: 'from-primary/20 to-primary/10',
+    accentColor: 'text-primary',
+    borderColor: 'border-primary/30',
     clipRotation: 'rotate-[-8deg]',
     delay: 300,
   },
@@ -79,7 +79,7 @@ const journeyData = [
     tag: '#Autodidaktik',
     rotation: '5deg',
     offsetY: 'md:mt-20',
-    color: 'from-primary/25 to-orange-600/15',
+    color: 'from-primary/25 to-primary/10',
     accentColor: 'text-primary',
     borderColor: 'border-primary/40',
     clipRotation: 'rotate-[20deg]',
@@ -121,42 +121,42 @@ function PolaroidCard({ item }: { item: (typeof journeyData)[0] }) {
     >
       {/* Metallic Paperclip Accent */}
       <div
-        className={`absolute -top-3.5 left-6 z-30 text-zinc-400/80 drop-shadow-md ${item.clipRotation}`}
+        className={`absolute -top-3.5 left-6 z-30 text-muted-foreground/80 drop-shadow-md ${item.clipRotation}`}
       >
         <Paperclip size={24} strokeWidth={2.2} />
       </div>
 
       {/* Polaroid Card Wrapper */}
-      <div className="group relative rounded-xl border border-white/10 bg-zinc-900/90 p-5 pb-6 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:z-40 hover:scale-[1.04] hover:shadow-[0_20px_45px_rgba(255,85,0,0.25)] hover:border-primary/50">
+      <div className="group relative rounded-xl border border-border bg-card/90 p-5 pb-6 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:z-40 hover:scale-[1.04] hover:shadow-[0_20px_45px_rgba(var(--primary-rgb),0.25)] hover:border-primary/50">
         
         {/* Top Header Label */}
-        <div className="mb-4 flex items-center justify-between border-b border-white/5 pb-3">
+        <div className="mb-4 flex items-center justify-between border-b border-border pb-3">
           <div className="flex items-center gap-2.5">
-            <div className={`flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-800/80 border ${item.borderColor} ${item.accentColor}`}>
+            <div className={`flex h-9 w-9 items-center justify-center rounded-lg bg-muted/80 border ${item.borderColor} ${item.accentColor}`}>
               <Icon size={18} />
             </div>
             <div>
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-white">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-foreground">
                 {item.level}
               </span>
-              <p className="font-mono text-[10px] text-zinc-400">
+              <p className="font-mono text-[10px] text-muted-foreground">
                 {item.period}
               </p>
             </div>
           </div>
-          <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
             {item.tag}
           </span>
         </div>
 
         {/* Institution Title */}
-        <h3 className="mb-2 text-lg font-bold tracking-tight text-white group-hover:text-primary transition-colors flex items-center justify-between">
+        <h3 className="mb-2 text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors flex items-center justify-between">
           <span>{item.institution}</span>
           <ArrowUpRight size={16} className="opacity-0 transition-opacity group-hover:opacity-100 text-primary" />
         </h3>
 
         {/* Story Description */}
-        <p className="mb-4 text-xs leading-relaxed text-zinc-300">
+        <p className="mb-4 text-xs leading-relaxed text-muted-foreground">
           {item.description}
         </p>
 
@@ -192,7 +192,7 @@ export function Experience() {
   }, [])
 
   return (
-    <section id="experience" className="relative border-b border-border overflow-hidden bg-zinc-950 py-24 md:py-32">
+    <section id="experience" className="relative border-b border-border overflow-hidden bg-background py-24 md:py-32">
       {/* Background Subtle Grid Texture */}
       <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
 
@@ -202,10 +202,10 @@ export function Experience() {
           <p className="font-mono text-xs uppercase tracking-widest text-primary">
             02 — Education &amp; Journey
           </p>
-          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-white md:text-5xl">
+          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             Pendidikan &amp; Perjalanan.
           </h2>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
             Jejak perjalanan pendidikan dan pengembangan diri dari bangku sekolah dasar hingga menjadi developer.
           </p>
         </div>
@@ -221,11 +221,11 @@ export function Experience() {
           >
             <path
               d="M 140,90 C 260,180 320,100 420,240 C 520,380 620,120 720,170 C 800,210 880,300 920,360"
-              stroke="#ff5500"
+              stroke="currentColor"
               strokeWidth="3.5"
               strokeDasharray="12 8"
               strokeLinecap="round"
-              className="opacity-70 transition-all duration-1000"
+              className="text-primary opacity-70 transition-all duration-1000"
               style={{
                 strokeDashoffset: lineVisible ? 0 : 1000,
                 transition: 'stroke-dashoffset 2s ease-in-out',

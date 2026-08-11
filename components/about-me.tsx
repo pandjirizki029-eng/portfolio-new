@@ -108,17 +108,17 @@ function TraitCard({ trait }: { trait: (typeof traits)[0] }) {
         transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${trait.delay}ms`,
       }}
     >
-      <div className="flex h-full flex-col rounded-xl border border-white/5 bg-zinc-950/50 p-6 transition-all duration-300 hover:border-primary/30 hover:bg-zinc-900/50 hover:-translate-y-1">
+      <div className="flex h-full flex-col rounded-xl border border-border bg-background/50 p-6 transition-all duration-300 hover:border-primary/30 hover:bg-card/50 hover:-translate-y-1">
         {/* Icon */}
         <div className="mb-4 inline-flex items-center justify-center rounded-lg bg-primary/10 p-2.5 text-primary ring-1 ring-primary/20 transition-colors duration-300 group-hover:bg-primary/20">
           <Icon size={20} />
         </div>
 
         {/* Text */}
-        <h3 className="mb-1.5 text-base font-bold tracking-tight text-white">
+        <h3 className="mb-1.5 text-base font-bold tracking-tight text-foreground">
           {trait.title}
         </h3>
-        <p className="text-sm leading-relaxed text-zinc-400">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           {trait.description}
         </p>
       </div>
@@ -175,20 +175,20 @@ export function AboutMe() {
           >
             {/* Profile Image */}
             <div className="group relative mb-8 inline-block z-[1]">
-              <div className="relative overflow-hidden rounded-xl border border-white/5 bg-zinc-950">
+              <div className="relative overflow-hidden rounded-xl border border-border bg-background">
                 <img
                   src="/images/foto-kp.png"
                   alt="Muhammad Pandji Ar Rizky Munib"
                   className="h-[280px] w-[240px] object-cover object-top transition-transform duration-700 group-hover:scale-105 grayscale hover:grayscale-0"
                 />
                 {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80" />
                 {/* Name overlay at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 p-5">
                   <p className="font-mono text-[10px] uppercase tracking-widest text-primary">
                     @pandjirizki
                   </p>
-                  <p className="text-base font-bold text-white">
+                  <p className="text-base font-bold text-foreground">
                     Pandji Ar Rizky
                   </p>
                 </div>
@@ -201,12 +201,12 @@ export function AboutMe() {
 
             {/* Bio text */}
             <div className="space-y-4">
-              <p className="text-sm leading-relaxed text-zinc-300">
-                Halo! Saya <span className="font-semibold text-white">Muhammad Pandji Ar Rizky Munib</span>, 
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Halo! Saya <span className="font-semibold text-foreground">Muhammad Pandji Ar Rizky Munib</span>, 
                 siswa jurusan Sistem Informasi Jaringan dan Aplikasi (SIJA) di SMK Telkom Sidoarjo. Saya percaya bahwa 
                 teknologi memiliki kekuatan untuk mengubah cara kita hidup dan bekerja.
               </p>
-              <p className="text-sm leading-relaxed text-zinc-400">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 Setiap baris kode yang saya tulis adalah langkah menuju mimpi membangun 
                 solusi digital yang tidak hanya berfungsi, tapi juga memberikan pengalaman 
                 yang bermakna bagi penggunanya.
@@ -221,10 +221,10 @@ export function AboutMe() {
                 { value: `${yearsCount}+`, label: 'Tahun Coding' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className="text-xl font-bold tracking-tight text-white">
+                  <div className="text-xl font-bold tracking-tight text-foreground">
                     {stat.value}
                   </div>
-                  <div className="mt-0.5 font-mono text-[9px] uppercase tracking-widest text-zinc-500">
+                  <div className="mt-0.5 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                     {stat.label}
                   </div>
                 </div>
@@ -244,14 +244,14 @@ export function AboutMe() {
             {/* Interests / Hobbies Row */}
             <div
               ref={interestsReveal.ref}
-              className="rounded-xl border border-white/5 bg-zinc-950/30 p-6"
+              className="rounded-xl border border-border bg-background/30 p-6"
               style={{
                 opacity: interestsReveal.visible ? 1 : 0,
                 transform: interestsReveal.visible ? 'translateY(0)' : 'translateY(20px)',
                 transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 400ms',
               }}
             >
-              <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-zinc-500">
+              <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                 Di luar coding
               </p>
               <div className="flex flex-wrap gap-2.5">
@@ -260,13 +260,13 @@ export function AboutMe() {
                   return (
                     <div
                       key={item.label}
-                      className="group flex items-center gap-2 rounded-md border border-white/5 bg-white/[0.02] px-3 py-1.5 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
+                      className="group flex items-center gap-2 rounded-md border border-border bg-white/[0.02] px-3 py-1.5 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
                     >
                       <Icon
                         size={14}
-                        className="text-zinc-400 transition-colors group-hover:text-primary"
+                        className="text-muted-foreground transition-colors group-hover:text-primary"
                       />
-                      <span className="text-xs text-zinc-300 transition-colors group-hover:text-white">
+                      <span className="text-xs text-muted-foreground transition-colors group-hover:text-foreground">
                         {item.label}
                       </span>
                     </div>
@@ -287,7 +287,7 @@ export function AboutMe() {
             transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
-          <div className="relative overflow-hidden rounded-xl border border-white/5 bg-zinc-950/50 p-8 md:p-12">
+          <div className="relative overflow-hidden rounded-xl border border-border bg-background/50 p-8 md:p-12">
             {/* Sparkle accent */}
             <div className="mb-6 flex items-center gap-2">
               <Sparkles size={14} className="text-primary" />
@@ -297,14 +297,14 @@ export function AboutMe() {
             </div>
 
             <blockquote className="relative z-10 max-w-3xl">
-              <p className="text-lg md:text-2xl font-medium leading-relaxed tracking-tight text-white/90">
+              <p className="text-lg md:text-2xl font-medium leading-relaxed tracking-tight text-foreground/90">
                 "Bagi saya, kode adalah alat ukur yang paling jujur. Di saat sistem berjalan atau gagal, ia memberikan petunjuk yang pasti. Tugas kita sebagai engineer adalah membaca petunjuk itu untuk membangun solusi."
               </p>
             </blockquote>
 
             <div className="mt-8 flex items-center gap-4">
               <div className="h-px w-12 bg-primary/40" />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-500">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                 Pandji Ar Rizky
               </span>
             </div>

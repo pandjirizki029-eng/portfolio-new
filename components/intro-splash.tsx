@@ -54,13 +54,13 @@ function ScrambleLetter({
     <span
       className={`inline-block w-[0.85em] text-center transition-all duration-300 ${
         resolved
-          ? 'text-white scale-110'
+          ? 'text-foreground scale-110'
           : 'text-primary/80 scale-100'
       }`}
       style={{
         textShadow: resolved
-          ? '0 0 30px rgba(255,85,0,0.6), 0 0 60px rgba(255,85,0,0.3), 0 0 120px rgba(255,85,0,0.1)'
-          : '0 0 8px rgba(255,85,0,0.3)',
+          ? '0 0 30px rgba(var(--primary-rgb),0.6), 0 0 60px rgba(var(--primary-rgb),0.3), 0 0 120px rgba(var(--primary-rgb),0.1)'
+          : '0 0 8px rgba(var(--primary-rgb),0.3)',
       }}
     >
       {display}
@@ -206,7 +206,7 @@ export function IntroSplash({ onComplete }: { onComplete: () => void }) {
               : 'opacity-0 translate-y-2'
           }`}
         >
-          <p className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase animate-pulse">
+          <p className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase animate-pulse">
             loading...
           </p>
         </div>
@@ -220,7 +220,7 @@ export function IntroSplash({ onComplete }: { onComplete: () => void }) {
 
       {/* Bottom build tag */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-        <p className="font-mono text-[9px] tracking-widest text-zinc-700 uppercase">
+        <p className="font-mono text-[9px] tracking-widest text-muted-foreground uppercase">
           pandji.dev // v2.0
         </p>
       </div>

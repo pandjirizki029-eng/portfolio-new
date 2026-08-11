@@ -14,13 +14,6 @@ export function Hero() {
         
         {/* Faint ambient glow */}
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-32 rounded-full bg-primary/5 blur-3xl" />
-        
-        {/* Sleek Top Background Typography (Faint Watermark) */}
-        <div className="absolute top-8 sm:top-10 left-0 right-0 flex justify-center items-center pointer-events-none px-4 z-0 opacity-20">
-          <h2 className="flex items-center justify-center font-mono font-bold tracking-widest text-[5vw] sm:text-[4vw] md:text-[3vw] lg:text-[48px] select-none text-white/10 uppercase">
-            Think <span className="mx-4 text-primary/30">/</span> Code <span className="mx-4 text-primary/30">/</span> Deploy
-          </h2>
-        </div>
 
         {/* Vignette gradients */}
         <div className="absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-background to-transparent" />
@@ -51,7 +44,7 @@ export function Hero() {
             </div>
 
             {/* Open for collab badge */}
-            <div className="inline-flex items-center gap-2 self-start rounded-full border border-white/20 bg-background/70 px-3.5 py-2 text-xs font-medium text-white backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-background/70 px-3.5 py-2 text-xs font-medium text-foreground backdrop-blur-sm">
               <span className="relative flex h-2 w-2 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
@@ -60,7 +53,7 @@ export function Hero() {
             </div>
 
             {/* Education card */}
-            <div className="rounded-xl border border-white/10 bg-background/50 p-4 backdrop-blur-sm self-start">
+            <div className="rounded-xl border border-border bg-background/50 p-4 backdrop-blur-sm self-start">
               <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mb-1">Pendidikan</p>
               <p className="text-sm font-bold text-foreground">SMK Telkom</p>
               <p className="font-mono text-xs font-semibold text-primary">2024 — 2028</p>
@@ -78,7 +71,7 @@ export function Hero() {
               </p>
               <a
                 href="#work"
-                className="group inline-flex items-center gap-2.5 self-start rounded-full bg-primary px-5 py-3 font-mono text-xs font-bold uppercase tracking-widest text-black transition-all hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(255,85,0,0.4)]"
+                className="group inline-flex items-center gap-2.5 self-start rounded-full bg-primary px-5 py-3 font-mono text-xs font-bold uppercase tracking-widest text-black transition-all hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.4)]"
               >
                 View Projects
                 <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
@@ -95,7 +88,7 @@ export function Hero() {
         </div>
 
         {/* Stats strip */}
-        <div className="border-t border-white/10 py-6">
+        <div className="border-t border-border py-6">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 text-center">
             {[
               { value: '2024', label: 'Perjalanan Dimulai' },

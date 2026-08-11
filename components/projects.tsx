@@ -115,7 +115,7 @@ export function Projects() {
   }
 
   return (
-    <section id="work" className="relative border-b border-border bg-zinc-950 py-20 md:py-28 overflow-hidden w-full">
+    <section id="work" className="relative border-b border-border bg-background py-20 md:py-28 overflow-hidden w-full">
       {/* Background Radial Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-primary/[0.05] blur-[160px] pointer-events-none" />
 
@@ -126,16 +126,16 @@ export function Projects() {
             <Sparkles size={13} className="animate-spin" />
             03 — Fullscreen Deck Archive
           </div>
-          <h2 className="text-balance text-3xl font-extrabold tracking-tight text-white md:text-5xl mb-4">
+          <h2 className="text-balance text-3xl font-extrabold tracking-tight text-foreground md:text-5xl mb-4">
             Karya &amp; <span className="text-primary">Prestasi.</span>
           </h2>
-          <p className="text-zinc-400 font-mono text-xs md:text-sm max-w-xl mb-8">
+          <p className="text-muted-foreground font-mono text-xs md:text-sm max-w-xl mb-8">
             Sorot kursor ke folder untuk membuka kunci &amp; membaca detail berkas.
           </p>
 
           {/* Toggle Buttons & Arrow Navigation Bar */}
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <div className="inline-flex items-center rounded-full border border-white/10 bg-zinc-900/90 p-1.5 backdrop-blur-md shadow-2xl">
+            <div className="inline-flex items-center rounded-full border border-border bg-card/90 p-1.5 backdrop-blur-md shadow-2xl">
               <button
                 onClick={() => {
                   setActiveTab('projects')
@@ -143,8 +143,8 @@ export function Projects() {
                 }}
                 className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                   activeTab === 'projects'
-                    ? 'bg-primary text-black shadow-[0_0_25px_rgba(255,85,0,0.45)]'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-primary text-black shadow-[0_0_25px_rgba(var(--primary-rgb),0.45)]'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <FolderGit2 size={16} />
@@ -158,8 +158,8 @@ export function Projects() {
                 }}
                 className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                   activeTab === 'certificates'
-                    ? 'bg-primary text-black shadow-[0_0_25px_rgba(255,85,0,0.45)]'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-primary text-black shadow-[0_0_25px_rgba(var(--primary-rgb),0.45)]'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <Award size={16} />
@@ -168,19 +168,19 @@ export function Projects() {
             </div>
 
             {/* Scroll Navigation Arrows */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/90 p-1.5 backdrop-blur-md shadow-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/90 p-1.5 backdrop-blur-md shadow-xl">
               <button
                 onClick={() => handleScroll('left')}
                 title="Geser Kiri"
-                className="flex items-center justify-center h-9 w-9 rounded-full bg-zinc-800 text-zinc-300 hover:bg-primary hover:text-black transition-all duration-200 active:scale-95 shadow"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-black transition-all duration-200 active:scale-95 shadow"
               >
                 <ChevronLeft size={20} />
               </button>
-              <span className="font-mono text-[10px] uppercase text-zinc-500 tracking-wider px-1">GESER</span>
+              <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-wider px-1">GESER</span>
               <button
                 onClick={() => handleScroll('right')}
                 title="Geser Kanan"
-                className="flex items-center justify-center h-9 w-9 rounded-full bg-zinc-800 text-zinc-300 hover:bg-primary hover:text-black transition-all duration-200 active:scale-95 shadow"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-black transition-all duration-200 active:scale-95 shadow"
               >
                 <ChevronRight size={20} />
               </button>
@@ -194,14 +194,14 @@ export function Projects() {
         {/* Side Floating Quick Action Arrows */}
         <button
           onClick={() => handleScroll('left')}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-zinc-900/90 text-zinc-300 hover:bg-primary hover:text-black border border-white/10 backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-card/90 text-muted-foreground hover:bg-primary hover:text-black border border-border backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
           title="Geser Kiri"
         >
           <ChevronLeft size={24} />
         </button>
         <button
           onClick={() => handleScroll('right')}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-zinc-900/90 text-zinc-300 hover:bg-primary hover:text-black border border-white/10 backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-card/90 text-muted-foreground hover:bg-primary hover:text-black border border-border backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
           title="Geser Kanan"
         >
           <ChevronRight size={24} />
@@ -224,7 +224,7 @@ export function Projects() {
                   onMouseLeave={() => setHoveredId(null)}
                   className={`group relative flex-none w-[280px] sm:w-[310px] md:w-[330px] transition-all duration-300 ease-out cursor-pointer ${
                     isHovered
-                      ? 'z-30 shadow-[0_20px_40px_rgba(0,0,0,0.95),0_0_30px_rgba(255,85,0,0.35)]'
+                      ? 'z-30 shadow-[0_20px_40px_rgba(0,0,0,0.95),0_0_30px_rgba(var(--primary-rgb),0.35)]'
                       : 'z-10 shadow-xl'
                   }`}
                   style={{
@@ -238,38 +238,38 @@ export function Projects() {
                     <div
                       className={`relative flex items-center gap-2 rounded-t-xl px-4 py-2 font-mono text-[11px] font-bold tracking-wider transition-all duration-300 border border-b-0 ${
                         isHovered
-                          ? 'border-primary bg-primary text-black shadow-[0_-3px_10px_rgba(255,85,0,0.4)]'
-                          : 'border-zinc-700 bg-zinc-800 text-zinc-300 group-hover:border-primary/80 group-hover:bg-zinc-750'
+                          ? 'border-primary bg-primary text-black shadow-[0_-3px_10px_rgba(var(--primary-rgb),0.4)]'
+                          : 'border-border bg-muted text-muted-foreground group-hover:border-primary/80 group-hover:bg-muted'
                       }`}
                     >
                       <Folder size={14} className={isHovered ? 'text-black fill-black' : 'text-primary fill-primary/40'} />
                       <span>{item.fileNo}</span>
                     </div>
-                    <span className="font-mono text-[10px] text-zinc-400 px-2 py-1 font-semibold">#0{index + 1}</span>
+                    <span className="font-mono text-[10px] text-muted-foreground px-2 py-1 font-semibold">#0{index + 1}</span>
                   </div>
 
                   {/* Folder Card Body */}
                   <div
                     className={`relative flex flex-col justify-between overflow-hidden rounded-2xl rounded-tl-none border transition-all duration-300 min-h-[380px] ${
                       isHovered
-                        ? 'border-primary bg-zinc-900/95 ring-1 ring-primary/40'
-                        : 'border-zinc-700/80 bg-zinc-900 group-hover:border-primary/60 shadow-2xl'
+                        ? 'border-primary bg-card/95 ring-1 ring-primary/40'
+                        : 'border-border/80 bg-card group-hover:border-primary/60 shadow-2xl'
                     }`}
                   >
                     {/* Minimalist Lock/Eye Cover - High Contrast Card Background (Shown when NOT hovered) */}
                     <div
-                      className={`absolute inset-0 z-20 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-zinc-800 via-zinc-900 to-zinc-950 transition-all duration-300 ${
+                      className={`absolute inset-0 z-20 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-muted via-card to-background transition-all duration-300 ${
                         isHovered ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'
                       }`}
                     >
                       {/* Centered Lock Icon with Glowing Ring */}
                       <div className="relative flex flex-col items-center justify-center">
                         <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl animate-pulse" />
-                        <div className="relative flex items-center justify-center h-20 w-20 rounded-2xl bg-zinc-900/90 border border-primary/40 text-primary shadow-[0_0_30px_rgba(255,85,0,0.25)] group-hover:border-primary group-hover:scale-110 transition-all duration-300">
+                        <div className="relative flex items-center justify-center h-20 w-20 rounded-2xl bg-card/90 border border-primary/40 text-primary shadow-[0_0_30px_rgba(var(--primary-rgb),0.25)] group-hover:border-primary group-hover:scale-110 transition-all duration-300">
                           <Lock size={36} className="text-primary" />
                         </div>
                         
-                        <div className="mt-6 flex items-center gap-2 font-mono text-xs font-bold text-zinc-400 uppercase tracking-widest group-hover:text-primary transition-colors">
+                        <div className="mt-6 flex items-center gap-2 font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest group-hover:text-primary transition-colors">
                           <Eye size={14} className="text-primary animate-bounce" />
                           <span>HOVER TO UNLOCK</span>
                         </div>
@@ -283,19 +283,19 @@ export function Projects() {
                       }`}
                     >
                       {/* Photo Banner Area */}
-                      <div className="relative h-44 w-full overflow-hidden bg-zinc-950">
+                      <div className="relative h-44 w-full overflow-hidden bg-background">
                         <Image
                           src={item.image}
                           alt={item.title}
                           fill
                           className="object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
                         <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
                           <span className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-black/80 text-primary border border-primary/40">
                             {item.category}
                           </span>
-                          <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-black/80 text-zinc-300 border border-white/10">
+                          <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-black/80 text-muted-foreground border border-border">
                             {item.year}
                           </span>
                         </div>
@@ -304,25 +304,25 @@ export function Projects() {
                       {/* Card Info Body */}
                       <div className="flex flex-1 flex-col justify-between p-5">
                         <div>
-                          <h3 className="text-base font-bold text-white mb-2 leading-snug text-primary">
+                          <h3 className="text-base font-bold text-foreground mb-2 leading-snug text-primary">
                             {item.title}
                           </h3>
 
                           {activeTab === 'projects' ? (
-                            <div className="inline-flex items-center gap-1.5 font-mono text-[11px] text-zinc-400 mb-3">
+                            <div className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground mb-3">
                               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                               {(item as typeof projectsData[0]).status}
                             </div>
                           ) : (
-                            <p className="font-mono text-xs text-zinc-400 mb-3">
-                              Penerbit: <span className="text-zinc-200 font-semibold">{(item as typeof certificatesData[0]).issuer}</span>
+                            <p className="font-mono text-xs text-muted-foreground mb-3">
+                              Penerbit: <span className="text-foreground font-semibold">{(item as typeof certificatesData[0]).issuer}</span>
                             </p>
                           )}
                         </div>
 
                         <div>
                           {/* Tags */}
-                          <div className="flex flex-wrap gap-1 border-t border-white/10 pt-3 mb-3">
+                          <div className="flex flex-wrap gap-1 border-t border-border pt-3 mb-3">
                             {item.tags.map((tag) => (
                               <span
                                 key={tag}
