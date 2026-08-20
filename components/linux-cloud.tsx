@@ -38,10 +38,7 @@ export function LinuxCloud() {
           className="mb-12 md:mb-16 transition-all duration-700 flex flex-col items-center text-center"
           style={{ opacity: headerVisible ? 1 : 0, transform: headerVisible ? 'translateY(0)' : 'translateY(20px)' }}
         >
-          <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-primary mb-3 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/10">
-            <Terminal size={13} />
-            Interactive Shell
-          </div>
+
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-5xl">
             Siapa <span className="text-primary">Aku?</span>
           </h2>
