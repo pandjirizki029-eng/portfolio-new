@@ -143,7 +143,7 @@ export function Projects() {
                 }}
                 className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                   activeTab === 'projects'
-                    ? 'bg-primary text-black shadow-[0_0_25px_rgba(var(--primary-rgb),0.45)]'
+                    ? 'bg-primary text-primary-foreground shadow-[0_0_25px_rgba(var(--primary-rgb),0.45)]'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
@@ -158,7 +158,7 @@ export function Projects() {
                 }}
                 className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                   activeTab === 'certificates'
-                    ? 'bg-primary text-black shadow-[0_0_25px_rgba(var(--primary-rgb),0.45)]'
+                    ? 'bg-primary text-primary-foreground shadow-[0_0_25px_rgba(var(--primary-rgb),0.45)]'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
@@ -172,7 +172,7 @@ export function Projects() {
               <button
                 onClick={() => handleScroll('left')}
                 title="Geser Kiri"
-                className="flex items-center justify-center h-9 w-9 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-black transition-all duration-200 active:scale-95 shadow"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 active:scale-95 shadow"
               >
                 <ChevronLeft size={20} />
               </button>
@@ -180,7 +180,7 @@ export function Projects() {
               <button
                 onClick={() => handleScroll('right')}
                 title="Geser Kanan"
-                className="flex items-center justify-center h-9 w-9 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-black transition-all duration-200 active:scale-95 shadow"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 active:scale-95 shadow"
               >
                 <ChevronRight size={20} />
               </button>
@@ -194,14 +194,14 @@ export function Projects() {
         {/* Side Floating Quick Action Arrows */}
         <button
           onClick={() => handleScroll('left')}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-card/90 text-muted-foreground hover:bg-primary hover:text-black border border-border backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-card/90 text-muted-foreground hover:bg-primary hover:text-primary-foreground border border-border backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
           title="Geser Kiri"
         >
           <ChevronLeft size={24} />
         </button>
         <button
           onClick={() => handleScroll('right')}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-card/90 text-muted-foreground hover:bg-primary hover:text-black border border-border backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-card/90 text-muted-foreground hover:bg-primary hover:text-primary-foreground border border-border backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
           title="Geser Kanan"
         >
           <ChevronRight size={24} />
@@ -236,11 +236,11 @@ export function Projects() {
                     <div
                       className={`relative flex items-center gap-2 rounded-t-xl px-4 py-2 font-mono text-[11px] font-bold tracking-wider transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] border border-b-0 ${
                         isHovered
-                          ? 'border-primary bg-primary text-black shadow-[0_-3px_10px_rgba(var(--primary-rgb),0.4)]'
+                          ? 'border-primary bg-primary text-primary-foreground shadow-[0_-3px_10px_rgba(var(--primary-rgb),0.4)]'
                           : 'border-border bg-muted text-muted-foreground group-hover:border-primary/80 group-hover:bg-muted'
                       }`}
                     >
-                      <Folder size={14} className={isHovered ? 'text-black fill-black' : 'text-primary fill-primary/40'} />
+                      <Folder size={14} className={isHovered ? 'text-primary-foreground fill-primary-foreground' : 'text-primary fill-primary/40'} />
                       <span>{item.fileNo}</span>
                     </div>
                     <span className="font-mono text-[10px] text-muted-foreground px-2 py-1 font-semibold">#0{index + 1}</span>
@@ -290,10 +290,10 @@ export function Projects() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
                         <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-black/80 text-primary border border-primary/40">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-background/80 text-primary border border-primary/40">
                             {item.category}
                           </span>
-                          <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-black/80 text-muted-foreground border border-border">
+                          <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-background/80 text-muted-foreground border border-border">
                             {item.year}
                           </span>
                         </div>
@@ -333,12 +333,12 @@ export function Projects() {
 
                           {/* Action Button */}
                           {activeTab === 'projects' && 'slug' in item ? (
-                            <Link href={`/project/${(item as typeof projectsData[0]).slug}`} className="flex items-center justify-between font-mono text-xs font-bold text-black bg-primary rounded-lg px-3 py-2 shadow-md hover:brightness-110 transition-all">
+                            <Link href={`/project/${(item as typeof projectsData[0]).slug}`} className="flex items-center justify-between font-mono text-xs font-bold text-primary-foreground bg-primary rounded-lg px-3 py-2 shadow-md hover:brightness-110 transition-all">
                               <span>Lihat Proyek</span>
                               <ArrowUpRight size={15} />
                             </Link>
                           ) : (
-                            <div className="flex items-center justify-between font-mono text-xs font-bold text-black bg-primary rounded-lg px-3 py-2 shadow-md">
+                            <div className="flex items-center justify-between font-mono text-xs font-bold text-primary-foreground bg-primary rounded-lg px-3 py-2 shadow-md">
                               <span>Verifikasi</span>
                               <ExternalLink size={15} />
                             </div>

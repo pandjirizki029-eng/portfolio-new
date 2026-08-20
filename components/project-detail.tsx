@@ -90,7 +90,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
         {/* Top nav bar */}
         <nav className={`relative z-30 flex items-center justify-between px-6 md:px-12 py-5 transition-all duration-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'}`}>
           <Link href="/#work" className="group flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">
-            <span className="flex items-center justify-center h-9 w-9 rounded-full border border-border bg-secondary group-hover:border-white/30 group-hover:bg-secondary transition-all">
+            <span className="flex items-center justify-center h-9 w-9 rounded-full border border-border bg-secondary group-hover:border-foreground/30 group-hover:bg-secondary transition-all">
               <ArrowLeft size={16} />
             </span>
             Kembali
@@ -143,7 +143,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
               {/* Tags */}
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold border border-white/8 bg-white/[0.04] text-muted-foreground hover:bg-white/[0.08] hover:border-white/15 transition-all cursor-default">{tag}</span>
+                  <span key={tag} className="px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold border border-foreground/10 bg-foreground/[0.04] text-muted-foreground hover:bg-foreground/[0.08] hover:border-foreground/20 transition-all cursor-default">{tag}</span>
                 ))}
               </div>
             </div>
@@ -161,7 +161,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
                 </div>
 
                 {/* Floating file label */}
-                <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-md border border-border">
+                <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-background/70 backdrop-blur-md border border-border">
                   <span className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: project.color }} />
                   <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider">{project.fileNo} — LIVE PREVIEW</span>
                 </div>
@@ -180,7 +180,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
       </section>
 
       {/* ── Stats Bar ── */}
-      <section className="relative border-y border-white/8 bg-card/50 backdrop-blur-md">
+      <section className="relative border-y border-foreground/10 bg-card/50 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 grid grid-cols-3 gap-6">
           {[
             { label: 'Fitur', countHook: featCount, suffix: '+' },
@@ -211,7 +211,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
             {/* Main content (3 cols) */}
             <div className="lg:col-span-3 space-y-12">
               {/* Long description */}
-              <div className="p-6 md:p-8 rounded-2xl bg-card/60 border border-white/6">
+              <div className="p-6 md:p-8 rounded-2xl bg-card/60 border border-foreground/10">
                 <p className="text-muted-foreground leading-[1.85] text-sm md:text-base">{project.longDescription}</p>
               </div>
 
@@ -225,7 +225,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {project.features.map((feat, i) => (
-                    <div key={i} className="group flex items-start gap-3 p-4 rounded-xl bg-card/40 border border-border hover:border-white/12 hover:bg-card/70 transition-all">
+                    <div key={i} className="group flex items-start gap-3 p-4 rounded-xl bg-card/40 border border-border hover:border-foreground/10 hover:bg-card/70 transition-all">
                       <CheckCircle2 size={16} className="mt-0.5 flex-none" style={{ color: project.color }} />
                       <span className="text-sm text-muted-foreground leading-snug">{feat}</span>
                     </div>
@@ -255,14 +255,14 @@ export function ProjectDetailView({ slug }: { slug: string }) {
             {/* Sidebar (2 cols) */}
             <div className="lg:col-span-2 space-y-8">
               {/* Tech stack card */}
-              <div className="rounded-2xl border border-white/8 bg-card/50 overflow-hidden">
-                <div className="px-6 py-4 border-b border-white/6 flex items-center gap-3">
+              <div className="rounded-2xl border border-foreground/10 bg-card/50 overflow-hidden">
+                <div className="px-6 py-4 border-b border-foreground/10 flex items-center gap-3">
                   <Layers size={16} style={{ color: project.color }} />
                   <h3 className="text-sm font-bold uppercase tracking-wider">Tech Stack</h3>
                 </div>
                 <div className="p-4 space-y-2">
                   {project.techStack.map((tech, i) => (
-                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-border hover:bg-white/[0.06] transition-all group">
+                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-foreground/[0.03] border border-border hover:bg-foreground/[0.06] transition-all group">
                       <div className="flex items-center gap-3">
                         <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: project.color }} />
                         <span className="text-sm font-semibold text-foreground">{tech.name}</span>
@@ -274,8 +274,8 @@ export function ProjectDetailView({ slug }: { slug: string }) {
               </div>
 
               {/* Project info card */}
-              <div className="rounded-2xl border border-white/8 bg-card/50 overflow-hidden">
-                <div className="px-6 py-4 border-b border-white/6">
+              <div className="rounded-2xl border border-foreground/10 bg-card/50 overflow-hidden">
+                <div className="px-6 py-4 border-b border-foreground/10">
                   <h3 className="text-sm font-bold uppercase tracking-wider">Info Proyek</h3>
                 </div>
                 <div className="p-4 space-y-4">
@@ -295,7 +295,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
               </div>
 
               {/* CTA */}
-              <Link href="/#work" className="flex items-center justify-center gap-2.5 w-full py-4 rounded-2xl font-mono text-sm font-bold uppercase tracking-wider text-black transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg" style={{ backgroundColor: project.color }}>
+              <Link href="/#work" className="flex items-center justify-center gap-2.5 w-full py-4 rounded-2xl font-mono text-sm font-bold uppercase tracking-wider text-background transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg" style={{ backgroundColor: project.color }}>
                 Lihat Proyek Lain
                 <ArrowUpRight size={16} />
               </Link>
@@ -305,7 +305,7 @@ export function ProjectDetailView({ slug }: { slug: string }) {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-white/6 py-10">
+      <footer className="border-t border-foreground/10 py-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-widest">{project.fileNo} — {project.title}</span>
           <Link href="/#work" className="font-mono text-[11px] text-muted-foreground hover:text-foreground uppercase tracking-widest transition-colors flex items-center gap-2">

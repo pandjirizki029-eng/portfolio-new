@@ -274,17 +274,19 @@ export function InteractiveTerminal() {
       {/* Terminal Body */}
       <div 
         ref={scrollContainerRef}
-        className="p-5 h-[400px] md:h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent"
+        className="p-4 sm:p-5 h-[400px] md:h-[500px] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-foreground/10 scrollbar-track-transparent"
       >
         {history.map((item, i) => (
           <div key={i}>
             {item.cmd !== 'welcome' && (
-              <div className="flex items-center gap-2 text-[#c9d1d9] mb-1">
-                <span className="text-green-400 font-bold">pandji@portfolio</span>
-                <span className="text-[#c9d1d9]">:</span>
-                <span className="text-blue-400 font-bold">~</span>
-                <span className="text-[#c9d1d9]">$</span>
-                <span className="ml-1">{item.cmd}</span>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[#c9d1d9] mb-1">
+                <div className="flex items-center gap-1">
+                  <span className="text-green-400 font-bold whitespace-nowrap">pandji@portfolio</span>
+                  <span className="text-[#c9d1d9]">:</span>
+                  <span className="text-blue-400 font-bold">~</span>
+                  <span className="text-[#c9d1d9]">$</span>
+                </div>
+                <span className="break-all">{item.cmd}</span>
               </div>
             )}
             {item.output}
@@ -292,17 +294,19 @@ export function InteractiveTerminal() {
         ))}
         
         {/* Current Input Line */}
-        <form onSubmit={handleCommand} className="flex items-center gap-2 text-[#c9d1d9] mt-2">
-          <span className="text-green-400 font-bold whitespace-nowrap">pandji@portfolio</span>
-          <span className="text-[#c9d1d9]">:</span>
-          <span className="text-blue-400 font-bold">~</span>
-          <span className="text-[#c9d1d9]">$</span>
+        <form onSubmit={handleCommand} className="flex flex-wrap sm:flex-nowrap items-center gap-x-2 gap-y-1 text-[#c9d1d9] mt-2">
+          <div className="flex items-center gap-1">
+            <span className="text-green-400 font-bold whitespace-nowrap">pandji@portfolio</span>
+            <span className="text-[#c9d1d9]">:</span>
+            <span className="text-blue-400 font-bold">~</span>
+            <span className="text-[#c9d1d9]">$</span>
+          </div>
           <input
             ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1 bg-transparent outline-none border-none text-[#c9d1d9] caret-primary"
+            className="flex-1 min-w-[100px] w-full sm:w-auto bg-transparent outline-none border-none text-[#c9d1d9] caret-primary"
             spellCheck="false"
             autoComplete="off"
           />

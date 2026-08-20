@@ -141,7 +141,7 @@ export function AboutMe() {
       {/* ── Background Effects ── */}
       <div className="pointer-events-none absolute inset-0 z-0">
         {/* Subtle dot grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 md:py-28">
@@ -214,7 +214,7 @@ export function AboutMe() {
             </div>
 
             {/* Mini stats row */}
-            <div className="mt-8 flex gap-6 border-t border-white/8 pt-6">
+            <div className="mt-8 flex gap-6 border-t border-foreground/10 pt-6">
               {[
                 { value: `${projectsCount}+`, label: 'Proyek' },
                 { value: `${techCount}+`, label: 'Teknologi' },
@@ -260,7 +260,7 @@ export function AboutMe() {
                   return (
                     <div
                       key={item.label}
-                      className="group flex items-center gap-2 rounded-md border border-border bg-white/[0.02] px-3 py-1.5 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
+                      className="group flex items-center gap-2 rounded-md border border-border bg-foreground/[0.02] px-3 py-1.5 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
                     >
                       <Icon
                         size={14}

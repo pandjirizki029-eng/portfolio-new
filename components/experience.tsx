@@ -127,7 +127,7 @@ function PolaroidCard({ item }: { item: (typeof journeyData)[0] }) {
       </div>
 
       {/* Polaroid Card Wrapper */}
-      <div className="group relative rounded-xl border border-border bg-card/90 p-5 pb-6 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:z-40 hover:scale-[1.04] hover:shadow-[0_20px_45px_rgba(var(--primary-rgb),0.25)] hover:border-primary/50">
+      <div className="group relative rounded-xl border border-border bg-card/90 p-5 pb-6 shadow-[0_10px_30px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.5)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md transition-all duration-300 hover:z-40 hover:scale-[1.04] hover:shadow-[0_20px_45px_rgba(var(--primary-rgb),0.25)] hover:border-primary/50">
         
         {/* Top Header Label */}
         <div className="mb-4 flex items-center justify-between border-b border-border pb-3">
@@ -194,7 +194,7 @@ export function Experience() {
   return (
     <section id="experience" className="relative border-b border-border overflow-hidden bg-background py-24 md:py-32">
       {/* Background Subtle Grid Texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
+      <div className="absolute inset-0 bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
 
       <div className="relative mx-auto max-w-6xl px-6">
         {/* Section Header */}

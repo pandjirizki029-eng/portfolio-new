@@ -73,20 +73,23 @@ function SkillPlayground() {
 
     const ctx = canvas.getContext('2d')!
     ctx.scale(dpr, dpr)
-    ctx.font = 'bold 12px "JetBrains Mono", monospace'
+    
+    const isMobile = window.innerWidth < 768
+    const fontSize = isMobile ? 10 : 12
+    ctx.font = `bold ${fontSize}px "JetBrains Mono", monospace`
 
     const W = rect.width
     const H = rect.height
-    const padX = 20
-    const padY = 10
+    const padX = isMobile ? 12 : 20
+    const padY = isMobile ? 8 : 10
 
     const bodies: Body[] = allSkills.map((skill) => {
       const metrics = ctx.measureText(skill.label)
       const w = metrics.width + padX * 2
-      const h = 14 + padY * 2
+      const h = (isMobile ? 12 : 14) + padY * 2
       return {
-        x: Math.random() * (W - w - 20) + 10,
-        y: Math.random() * (H - h - 20) + 10,
+        x: Math.random() * Math.max(0, W - w - 20) + 10,
+        y: Math.random() * Math.max(0, H - h - 20) + 10,
         vx: (Math.random() - 0.5) * 1.5,
         vy: (Math.random() - 0.5) * 1.5,
         w,
@@ -230,7 +233,9 @@ function SkillPlayground() {
 
         // Text
         ctx.fillStyle = isBeingDragged || isHovered ? b.color : defaultText
-        ctx.font = 'bold 12px "JetBrains Mono", monospace'
+        const isMobile = window.innerWidth < 768
+        const fontSize = isMobile ? 10 : 12
+        ctx.font = `bold ${fontSize}px "JetBrains Mono", monospace`
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
         ctx.fillText(b.label, b.x + b.w / 2, b.y + b.h / 2 + 1)
@@ -339,21 +344,23 @@ function SkillPlayground() {
   }, [initBodies])
 
   return (
-    <div ref={containerRef} className="relative w-full h-[320px] md:h-[360px] rounded-2xl border border-white/8 bg-background/80 overflow-hidden select-none">
+    <div ref={containerRef} className="relative w-full h-[450px] md:h-[400px] rounded-2xl border border-foreground/10 bg-background/80 overflow-hidden select-none">
       {/* Corner decorations */}
       <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-primary/40 rounded-tl-2xl pointer-events-none z-10" />
       <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-primary/40 rounded-br-2xl pointer-events-none z-10" />
 
       {/* Subtle grid background */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
-        backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
+        backgroundImage: 'linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)',
         backgroundSize: '40px 40px',
       }} />
 
       {/* Label */}
       <div className="absolute top-3 left-4 z-20 flex items-center gap-2 pointer-events-none">
-        <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Drag & play — interactive skills</span>
+        <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+          Drag & play <span className="hidden sm:inline">— interactive skills</span>
+        </span>
       </div>
 
       {/* Skill count */}

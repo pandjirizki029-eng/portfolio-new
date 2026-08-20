@@ -27,7 +27,7 @@ export function LinuxCloud() {
   return (
     <section id="terminal-profile" className="relative border-b border-border overflow-hidden bg-background py-24 md:py-32">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(#ffffff06_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/[0.04] blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[300px] bg-primary/[0.03] blur-[120px] pointer-events-none" />
 
