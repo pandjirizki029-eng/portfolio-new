@@ -8,15 +8,98 @@ type Command = {
   output: React.ReactNode
 }
 
+const ASCII_ART = [
+  "=====-:::::::::::=-:::::*************====----=+####%%%%%%%%%%*+=--------------------*=-----*+-------",
+  "====----::::::::-+=::::*************====---=+#%%%%%%%%%%%%%%%%%##*-----------------*=-----*+--------",
+  "===------::-=:--+=::::*************===----+%%%%%%%%%%%%%%%%%%%%%%#%#=-------------*=-----*+---------",
+  "==-----:---+++++=:::-+++**********===----*%%###%%%%%%%%%%%%%%%%%%%%%%=-----------==-----*+----------",
+  "=----::::-===++=:::-==+==++******===-----*#+**###%%%%%%%%%%%%%%%%%%%%%+---------*=-----#+-----------",
+  "---------======:::-***+==+=+=***===----+#**++***#%%%%%%%%%%%%%%%%%%%%##=------=*=-----*=-----------=",
+  "--------======--:=******+++===*===----*###++++++++*###%%%%%%%%%%%%%%%##===----#=-----#=-----------=#",
+  "-------======:---**********++*===----+#*%*=+++==++++*#%%%%%%%%%%%%%%%%%#+====#=-----#=-----------=##",
+  "------======----*************===-----+#*#====+++++++*##%%%%%%%%%%%%%%%%%+===*==---=#=-----------=###",
+  "==---=========-*************===------*#*+===++++++****#%%%%%%%%%%%%%%%%%#+=*======#=-----------+####",
+  "----=====--=--*************===---------====+++*****####%%%%%%%%%%%%%%%%%%+*====-=#===---------+#####",
+  ":::=====-:---*************+===---------==+++++**##**#%%##%%%%%%%%%%%%%%%**==-===#=======-----+######",
+  "=:=====-----+*++*********+===---------=++++++****##%##########%%%%%%%%%#*==-===*==========+=*#######",
+  "-==+****#**#####***=-=***+==---------=++++++***#####%##########%%%#%%#+*==-=-=*===========-*########",
+  "=+****##*#############*+*+=*=*=---====++++++*******###**########%#%##+*==-=-=*=======--==-*#########",
+  "****###*###################++*+==+++==+++++*****#******#%%###%%#*+===*-----=*======-====-*##########",
+  "***##%#*#########%#########*++*+++++++++++*****#++*+**#########*=-=++-----++==--===-===-*##########+",
+  "*###%#***######%#######%%%#*++**+++**+++++******##****#######**+=+++-----++=--===--===-*##########==",
+  "*##%%****####%######%%%%%%%#*++*#+****++++**###**#####+====+**++=++-----++=--===--==+-*##########-=*",
+  "##%%#****##%########%%%%%%%%%****#***#*+*******#####*=**+++*******=----++-----======-##########*--++",
+  "#%%%***#########%%%%%%%%%%%%%%%#**+%%%%%%%%%%*+++*%%%%%%%%%%**********++-----======-##########*--++=",
+  "#%%#**#########%%%%%%%%%%%%%%%%%%%#%%%%%%%%%%%+==========++++*****+*******+---==-=-##########*=*=*+-",
+  "%%%*#########%%%%%%%%%%%%%%%%%%%%%#%%%%%%%%%%%++++++++++++*+++**+++++***********+=##########*+*****+",
+  "%%#########%%%%#%%%%%%%%%%%%%%%%%%#+++#*#+++++++++*****************+*************%#########*******+=",
+  "%########%%%%%%%%%%%%%%%%%%%%%%%%%#+==+++======++********#######*****************%%%######+=+**#*+=-",
+  "%#######%%%%#%%#%%%%%%%%%%%%%%%%%%#*=++++++=====++++++++**+==++*****************#%%%%####+=++**+=+*=",
+  "%#######%%####%%%%###%%%%%%%%%%%%%#*=++++==+========++++++++****##*************%%%%%%%%#==+**=-=----",
+  "########%%%####%%####%%%%%%%%%%%%%**+==================++++***##*************#%%%%%%%%%%*+++-=+=====",
+  "#######%%%%%%%%%%%%%%%%%%%%#%%%%%%%%#############%%%%%%%%%%%%%#************#%%%%%%%%%%%%#+*-==--:===",
+  "######%%%%%%%%%%%%%%%%%%%%#%%%%#%%%%%%%%%%%%%%%%%%%%%%%%%%%@@#***#+===+=#%%%%%%%%%%%%%%%*+===--:---=",
+  "#####%%%%%%%%%%%%%%%%%%%%#%%%%%%%%##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#+=+--%%%%%%%%%%%%%%#+:==-------=",
+  "####%%%%%%%%%%%%%%##*#*%%%%%%%%%%#%%%%%%%%%%%%%%%%%%%%@%%%%%%%%%%%%%#+:-#%%%%%%%%%%%%%%#=+=---:==-=-",
+  "###%%%%%%%%%%%%%%%%%%%%#%%*#%%%%%%%%%%%%%%%%%%%%%%%%%@@%%%%%%%%%%%%%%%+##%%%%%%%%%%%%%%*+=--=-=---:-",
+  "##%%%%%%%%%%%%+*%%%%%%%%%%%+***%%%%%%#%%#%%%%%%%%%%%@@@%%%%%%%%%%%%%%%%#%%%%%%%%%%%%%%%*=-=---=--:-=",
+  "#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%++=:--=----==",
+  "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#=-++=+=--==+=",
+  "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*=+=-*+=--+===",
+  "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%+===**+-=+=--+",
+  "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%+=+**=--===-++",
+  "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#++*+=-==++=*+=",
+  "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%==+=--==+=++=-:",
+  "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%+------=*%%%%%%%%%%%%%%%%%%%%%%%%%+++==-==++++++-=",
+  "%%%%%%%%%%%@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*=---------=-*##%%%%%%%%%%%%%%%%%%%%*+++=-==++=*===++",
+  "%%%%%%%%%%@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%=*=------====-*########%%%%%%%%%%%%%%=+*+--==+=+**====+",
+  "%%%%%%%%%@@@@@%%%%%%%@@@%%%%%%%%%%%%%%%%%%#=-*=---+=---==-*##########****######*==*#+====++++*+-=-++",
+  "%%%%%%%%%@@@@@@%@@@%%@@@%%%%%%%%%%%%%%%%%%=-*------+-===-#############++=====++===#*=-=+++++*===-++*",
+  "%%%%%%%@@@@@@@@@@@@@@@@@@@@%%%%%%%%%%%%%%%-*------------##########+*#+=++=+=++=-=*+===+=++#*=====+++",
+  "%%%%%%%@@@@@@@@@@@@@@@@@@@%%%%%%%%%%%%%%%+*---:-:::---:*#########+===--=+#**##=+++**++++++==+===++++"
+].join('\n')
+
 export function InteractiveTerminal() {
   const [history, setHistory] = useState<Command[]>([
     {
       cmd: 'welcome',
       output: (
-        <div className="text-[#8b949e] mb-2">
-          <p>Welcome to PandjiOS v1.0.0 (tty1)</p>
-          <p>Type <span className="text-primary font-bold">'help'</span> to see available commands.</p>
-          <p>Try typing <span className="text-primary font-bold">'whoami'</span> to start.</p>
+        <div className="flex flex-col xl:flex-row gap-4 xl:gap-8 items-start mb-6 mt-2">
+          <div className="hidden md:block text-primary font-mono whitespace-pre text-[4px] leading-[1.2] select-none tracking-tighter opacity-80">
+            {ASCII_ART}
+          </div>
+          <div className="text-[#8b949e] flex flex-col justify-center w-full">
+            <div className="mb-4 inline-block">
+              <span className="text-primary font-bold">pandji</span>
+              <span className="text-[#c9d1d9]">@</span>
+              <span className="text-primary font-bold">portfolio</span>
+              <div className="h-px bg-[#30363d] w-full my-1"></div>
+            </div>
+            
+            <div className="grid grid-cols-[80px_1fr] gap-x-2 gap-y-1 mb-4 text-xs md:text-sm">
+              <span className="text-primary font-bold">OS</span><span className="text-[#c9d1d9]">PandjiOS x86_64</span>
+              <span className="text-primary font-bold">Host</span><span className="text-[#c9d1d9]">Portfolio Web Server</span>
+              <span className="text-primary font-bold">Kernel</span><span className="text-[#c9d1d9]">5.15.0-1040-aws</span>
+              <span className="text-primary font-bold">Uptime</span><span className="text-[#c9d1d9]">99.9% (Always Online)</span>
+              <span className="text-primary font-bold">Shell</span><span className="text-[#c9d1d9]">bash 5.1.16</span>
+              <span className="text-primary font-bold">Theme</span><span className="text-[#c9d1d9]">Dot Matrix (Terminal)</span>
+            </div>
+            
+            <div className="flex gap-1.5 mb-5">
+              <div className="w-3 h-3 bg-[#1e1e1e]"></div>
+              <div className="w-3 h-3 bg-[#f85149]"></div>
+              <div className="w-3 h-3 bg-[#3fb950]"></div>
+              <div className="w-3 h-3 bg-[#d29922]"></div>
+              <div className="w-3 h-3 bg-[#58a6ff]"></div>
+              <div className="w-3 h-3 bg-[#bc8cff]"></div>
+              <div className="w-3 h-3 bg-[#39c5cf]"></div>
+              <div className="w-3 h-3 bg-[#b1bac4]"></div>
+            </div>
+
+            <p className="mb-1 text-[#c9d1d9]">Welcome to PandjiOS v1.0.0 (tty1)</p>
+            <p>Type <span className="text-primary font-bold">'help'</span> to see available commands.</p>
+            <p>Try typing <span className="text-primary font-bold">'whoami'</span> to start.</p>
+          </div>
         </div>
       ),
     },
@@ -69,10 +152,51 @@ export function InteractiveTerminal() {
             <p className="text-[#8b949e] mb-2">Available commands:</p>
             <div className="grid grid-cols-[100px_1fr] gap-2 text-[#c9d1d9]">
               <span className="text-primary font-bold">whoami</span><span>Nampilin siapa aku sebenarnya</span>
+              <span className="text-primary font-bold">neofetch</span><span>Tampilkan info sistem & ASCII art</span>
               <span className="text-primary font-bold">skills</span><span>Lihat daftar skill dan tech stack</span>
               <span className="text-primary font-bold">socials</span><span>Daftar kontak dan sosial media</span>
               <span className="text-primary font-bold">sudo</span><span>???</span>
               <span className="text-primary font-bold">clear</span><span>Bersihkan layar terminal</span>
+            </div>
+          </div>
+        )
+        break
+      case 'neofetch':
+        output = (
+          <div className="flex flex-col xl:flex-row gap-4 xl:gap-8 items-start mb-6 mt-4">
+            <div className="hidden md:block text-primary font-mono whitespace-pre text-[4px] leading-[1.2] select-none tracking-tighter opacity-80">
+              {ASCII_ART}
+            </div>
+            <div className="text-[#8b949e] flex flex-col justify-center w-full">
+              <div className="mb-4 inline-block">
+                <span className="text-primary font-bold">pandji</span>
+                <span className="text-[#c9d1d9]">@</span>
+                <span className="text-primary font-bold">portfolio</span>
+                <div className="h-px bg-[#30363d] w-full my-1"></div>
+              </div>
+              
+              <div className="grid grid-cols-[80px_1fr] gap-x-2 gap-y-1 mb-4 text-xs md:text-sm">
+                <span className="text-primary font-bold">OS</span><span className="text-[#c9d1d9]">PandjiOS x86_64</span>
+                <span className="text-primary font-bold">Host</span><span className="text-[#c9d1d9]">Portfolio Web Server</span>
+                <span className="text-primary font-bold">Kernel</span><span className="text-[#c9d1d9]">5.15.0-1040-aws</span>
+                <span className="text-primary font-bold">Uptime</span><span className="text-[#c9d1d9]">99.9% (Always Online)</span>
+                <span className="text-primary font-bold">Packages</span><span className="text-[#c9d1d9]">1337 (npm)</span>
+                <span className="text-primary font-bold">Shell</span><span className="text-[#c9d1d9]">bash 5.1.16</span>
+                <span className="text-primary font-bold">Theme</span><span className="text-[#c9d1d9]">Dot Matrix (Terminal)</span>
+                <span className="text-primary font-bold">CPU</span><span className="text-[#c9d1d9]">100x Engineer Brain</span>
+                <span className="text-primary font-bold">Memory</span><span className="text-[#c9d1d9]">16GB / 32GB</span>
+              </div>
+              
+              <div className="flex gap-1.5 mb-2">
+                <div className="w-3 h-3 bg-[#1e1e1e]"></div>
+                <div className="w-3 h-3 bg-[#f85149]"></div>
+                <div className="w-3 h-3 bg-[#3fb950]"></div>
+                <div className="w-3 h-3 bg-[#d29922]"></div>
+                <div className="w-3 h-3 bg-[#58a6ff]"></div>
+                <div className="w-3 h-3 bg-[#bc8cff]"></div>
+                <div className="w-3 h-3 bg-[#39c5cf]"></div>
+                <div className="w-3 h-3 bg-[#b1bac4]"></div>
+              </div>
             </div>
           </div>
         )
@@ -108,7 +232,7 @@ export function InteractiveTerminal() {
         )
         break
       case 'clear':
-        setHistory([])
+        setHistory((prev) => prev.length > 0 && prev[0].cmd === 'welcome' ? [prev[0]] : [])
         setInput('')
         return
       default:

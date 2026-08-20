@@ -46,7 +46,7 @@ export function LinuxCloud() {
             Siapa <span className="text-primary">Aku?</span>
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Coba ketik command di bawah ini untuk mencari tahu tentangku. (Hint: coba ketik <strong className="text-primary">whoami</strong>)
+            Coba ketik command di bawah ini untuk mencari tahu tentangku. (Hint: coba ketik <strong className="text-primary">whoami</strong> atau <strong className="text-primary">neofetch</strong>)
           </p>
         </div>
 
