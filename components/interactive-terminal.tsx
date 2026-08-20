@@ -218,9 +218,10 @@ export function InteractiveTerminal() {
       case 'socials':
         output = (
           <div className="text-[#8b949e] space-y-1 mt-2 mb-4">
-            <p><span className="text-[#8b949e]">GitHub:</span> <a href="#" className="text-primary hover:underline">github.com/pandjirizki</a></p>
-            <p><span className="text-[#8b949e]">LinkedIn:</span> <a href="#" className="text-primary hover:underline">linkedin.com/in/pandjirizki</a></p>
-            <p><span className="text-[#8b949e]">Email:</span> <a href="mailto:pandji@example.com" className="text-primary hover:underline">pandji@example.com</a></p>
+            <p><span className="text-[#8b949e]">GitHub:</span> <a href="https://github.com/pandjirizki029-eng" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">github.com/pandjirizki029-eng</a></p>
+            <p><span className="text-[#8b949e]">LinkedIn:</span> <a href="https://www.linkedin.com/in/pandji-rizki-927ba3421" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">linkedin.com/in/pandji-rizki-927ba3421</a></p>
+            <p><span className="text-[#8b949e]">Instagram:</span> <a href="https://www.instagram.com/fyxx_jull?igsh=aXBrdTR6cGxjNnQx" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">instagram.com/fyxx_jull</a></p>
+            <p><span className="text-[#8b949e]">Email:</span> <a href="mailto:pandjirizki24@gmail.com" className="text-primary hover:underline">pandjirizki24@gmail.com</a></p>
           </div>
         )
         break

@@ -218,25 +218,23 @@ export function Projects() {
               const waveStyle = waveStyles[index % waveStyles.length]
 
               return (
-                <div
-                  key={item.id}
-                  onMouseEnter={() => setHoveredId(item.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                  className={`group relative flex-none w-[280px] sm:w-[310px] md:w-[330px] transition-all duration-300 ease-out cursor-pointer ${
-                    isHovered
-                      ? 'z-30 shadow-[0_20px_40px_rgba(0,0,0,0.95),0_0_30px_rgba(var(--primary-rgb),0.35)]'
-                      : 'z-10 shadow-xl'
-                  }`}
-                  style={{
-                    transform: isHovered
-                      ? 'translateY(-14px) rotate(0deg)'
-                      : `translateY(${waveStyle.translateY}) rotate(${waveStyle.rotate})`,
-                  }}
-                >
+                  <div
+                    key={item.id}
+                    onMouseEnter={() => setHoveredId(item.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                    className={`group relative flex-none w-[280px] sm:w-[310px] md:w-[330px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer ${
+                      isHovered ? 'z-30' : 'z-10'
+                    }`}
+                    style={{
+                      transform: isHovered
+                        ? 'translateY(-14px) rotate(0deg) scale(1.02)'
+                        : `translateY(${waveStyle.translateY}) rotate(${waveStyle.rotate}) scale(1)`,
+                    }}
+                  >
                   {/* Folder Tab Header */}
                   <div className="flex items-end justify-between px-2">
                     <div
-                      className={`relative flex items-center gap-2 rounded-t-xl px-4 py-2 font-mono text-[11px] font-bold tracking-wider transition-all duration-300 border border-b-0 ${
+                      className={`relative flex items-center gap-2 rounded-t-xl px-4 py-2 font-mono text-[11px] font-bold tracking-wider transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] border border-b-0 ${
                         isHovered
                           ? 'border-primary bg-primary text-black shadow-[0_-3px_10px_rgba(var(--primary-rgb),0.4)]'
                           : 'border-border bg-muted text-muted-foreground group-hover:border-primary/80 group-hover:bg-muted'
@@ -250,15 +248,15 @@ export function Projects() {
 
                   {/* Folder Card Body */}
                   <div
-                    className={`relative flex flex-col justify-between overflow-hidden rounded-2xl rounded-tl-none border transition-all duration-300 min-h-[380px] ${
+                    className={`relative flex flex-col justify-between overflow-hidden rounded-2xl rounded-tl-none border transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] min-h-[380px] ${
                       isHovered
-                        ? 'border-primary bg-card/95 ring-1 ring-primary/40'
-                        : 'border-border/80 bg-card group-hover:border-primary/60 shadow-2xl'
+                        ? 'border-primary bg-card/95 ring-1 ring-primary/40 shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.95)] shadow-primary/20'
+                        : 'border-border/80 bg-card group-hover:border-primary/60 shadow-xl'
                     }`}
                   >
                     {/* Minimalist Lock/Eye Cover - High Contrast Card Background (Shown when NOT hovered) */}
                     <div
-                      className={`absolute inset-0 z-20 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-muted via-card to-background transition-all duration-300 ${
+                      className={`absolute inset-0 z-20 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-muted via-card to-background transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                         isHovered ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'
                       }`}
                     >
@@ -278,8 +276,8 @@ export function Projects() {
 
                     {/* Detailed Content (Revealed when HOVERED) */}
                     <div
-                      className={`flex flex-col justify-between flex-1 transition-all duration-300 ${
-                        isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                      className={`flex flex-col justify-between flex-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        isHovered ? 'opacity-100 delay-150' : 'opacity-0 pointer-events-none'
                       }`}
                     >
                       {/* Photo Banner Area */}

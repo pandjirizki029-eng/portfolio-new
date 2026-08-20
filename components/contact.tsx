@@ -1,9 +1,9 @@
 import { ArrowUpRight } from 'lucide-react'
 
 const socials = [
-  { label: 'GitHub', href: 'https://github.com/panji710' },
-  { label: 'LinkedIn', href: 'https://linkedin.com' },
-  { label: 'Instagram', href: 'https://instagram.com' },
+  { label: 'GitHub', href: 'https://github.com/pandjirizki029-eng' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/pandji-rizki-927ba3421' },
+  { label: 'Instagram', href: 'https://www.instagram.com/fyxx_jull?igsh=aXBrdTR6cGxjNnQx' },
 ]
 
 export function Contact() {
@@ -21,10 +21,10 @@ export function Contact() {
         </h2>
 
         <a
-          href="mailto:muhammadpandji@gmail.com"
+          href="mailto:pandjirizki24@gmail.com"
           className="mt-10 inline-flex items-center gap-3 text-2xl font-bold tracking-tight underline decoration-primary decoration-2 underline-offset-8 transition-colors hover:text-primary sm:text-4xl"
         >
-          muhammadpandji@gmail.com
+          pandjirizki24@gmail.com
           <ArrowUpRight className="text-primary" size={32} />
         </a>
 
