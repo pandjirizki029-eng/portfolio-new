@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion, useMotionValue, useAnimation, PanInfo, useTransform } from 'framer-motion'
 import {
   FolderGit2,
   Award,
@@ -91,31 +92,149 @@ const certificatesData = [
   },
 ]
 
-// Dynamic wave offsets and rotations for organic fanned arch effect
-const waveStyles = [
-  { translateY: '14px', rotate: '-3.5deg' },
-  { translateY: '6px', rotate: '-2deg' },
-  { translateY: '-3px', rotate: '-0.8deg' },
-  { translateY: '-10px', rotate: '0deg' },
-  { translateY: '-3px', rotate: '0.8deg' },
-  { translateY: '6px', rotate: '2deg' },
-  { translateY: '14px', rotate: '3.5deg' },
-]
+// Removed waveStyles since we no longer stack them
 
-export function Projects() {
-  const [activeTab, setActiveTab] = useState<'projects' | 'certificates'>('projects')
-  const [hoveredId, setHoveredId] = useState<string | null>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
+function Gallery({ type }: { type: 'projects' | 'certificates' }) {
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const [windowWidth, setWindowWidth] = useState(0)
+  const x = useMotionValue(0)
+  const controls = useAnimation()
 
-  const handleScroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -350 : 350
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const [isHovering, setIsHovering] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Configuration for Coverflow
+  // Reduced width so more items fit on a standard 100% zoom screen
+  const itemWidth = 300
+  const gap = 24
+  const step = itemWidth + gap
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
     }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
+
+  // Hide cursor if user scrolls the page without moving the mouse and leaves the section
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!isHovering || !containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+      const cx = mouseX.get()
+      const cy = mouseY.get()
+      if (cx < rect.left || cx > rect.right || cy < rect.top || cy > rect.bottom) {
+        setIsHovering(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isHovering, mouseX, mouseY])
+
+  // Pseudo-infinite items (duplicate 6 times for performance)
+  // We no longer need 20 loops since the CSS desync boundary bug was fixed!
+  const currentData = type === 'projects' ? projectsData : certificatesData
+  const infiniteItems = Array.from({ length: 6 }).flatMap((_, i) => 
+    currentData.map((item) => ({ ...item, uniqueId: `${i}-${item.id}` }))
+  )
+  
+  const totalWidth = infiniteItems.length * step
+
+  // Start in the middle of the track
+  useEffect(() => {
+    if (windowWidth > 0) {
+      const middleIndex = Math.floor(infiniteItems.length / 2)
+      const startX = -(middleIndex * step) + windowWidth / 2 - itemWidth / 2
+      x.set(startX)
+      controls.set({ x: startX })
+    }
+  }, [windowWidth, type])
+
+  const handleDragEnd = (e: any, info: PanInfo) => {
+    // We can add logic to snap to the closest item here if we want,
+    // but a smooth free-drag is also very nice.
+  }
+
+  // Calculate dynamic styles for each item based on `x` motion value
+  const CarouselItem = ({ item, index }: { item: any, index: number }) => {
+    const itemCenter = index * step + itemWidth / 2
+    
+    const distance = useTransform(x, (val) => {
+      return val + itemCenter - windowWidth / 2
+    })
+
+    // Tunnel/Concave Effect: Edges are large and rotated inwards, center is small
+    // Thresholds tuned to 600px so it perfectly frames 5 visible cards on a 100% display
+    const rotateY = useTransform(distance, [-600, 0, 600], [30, 0, -30])
+    const scale = useTransform(distance, [-600, 0, 600], [1.25, 0.75, 1.25])
+    
+    // Fix zIndex: framer-motion needs exact integers for z-index, otherwise browsers ignore it
+    const rawZIndex = useTransform(distance, [-600, 0, 600], [10, 0, 10])
+    const zIndex = useTransform(rawZIndex, (val) => Math.round(val))
+    
+    // Wide opacity so cards NEVER disappear on wide screens until safely out of view
+    const opacity = useTransform(distance, [-2000, -800, 0, 800, 2000], [0, 1, 1, 1, 0])
+
+    return (
+      <div 
+        style={{ 
+          perspective: '1200px', 
+          width: 300, 
+          marginLeft: index === 0 ? 0 : 24 
+        }} 
+        className="relative flex-none"
+      >
+        <motion.div
+          style={{
+            rotateY,
+            scale,
+            zIndex,
+            opacity,
+            willChange: "transform",
+          }}
+          className="relative w-full h-[180px] sm:h-[220px] md:h-[240px] rounded-2xl overflow-hidden shadow-2xl bg-card border-2 border-white/5 cursor-none group"
+        >
+        <Image
+          src={item.image}
+          alt={item.title}
+          fill
+          draggable={false}
+          className="object-cover object-center pointer-events-none"
+        />
+        {/* Subtle gradient overlay to enhance 3D effect */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-black/10 to-transparent pointer-events-none" />
+        
+        {/* Action Button (Lihat Detail) */}
+        <Link
+          href={type === 'projects' && item.slug ? `/project/${item.slug}` : '#'}
+          onMouseEnter={() => setIsHovering(false)}
+          onMouseLeave={() => setIsHovering(true)}
+          className="absolute bottom-5 right-5 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white cursor-pointer opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 hover:scale-110 transition-all duration-300"
+          title={type === 'projects' ? 'Lihat Detail Proyek' : 'Lihat Sertifikat'}
+        >
+          {type === 'projects' ? <ArrowUpRight size={24} /> : <ExternalLink size={24} />}
+        </Link>
+        </motion.div>
+      </div>
+    )
   }
 
   return (
-    <section id="work" className="relative border-b border-border bg-background py-20 md:py-28 overflow-hidden w-full">
+    <section id={type === 'projects' ? 'work' : 'certificates'} className="relative border-b border-border bg-background py-20 md:py-28 overflow-hidden w-full">
       {/* Background Radial Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-primary/[0.05] blur-[160px] pointer-events-none" />
 
@@ -124,236 +243,76 @@ export function Projects() {
         <div className="flex flex-col items-center text-center mb-10">
           <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-primary mb-3 px-3.5 py-1 rounded-full border border-primary/20 bg-primary/10">
             <Sparkles size={13} className="animate-spin" />
-            03 — Fullscreen Deck Archive
+            {type === 'projects' ? '03 — Fullscreen Deck Archive' : '04 — Professional Licenses'}
           </div>
           <h2 className="text-balance text-3xl font-extrabold tracking-tight text-foreground md:text-5xl mb-4">
-            Karya &amp; <span className="text-primary">Prestasi.</span>
+            {type === 'projects' ? (
+              <>Karya &amp; <span className="text-primary">Prestasi.</span></>
+            ) : (
+              <>Lisensi &amp; <span className="text-primary">Sertifikasi.</span></>
+            )}
           </h2>
           <p className="text-muted-foreground font-mono text-xs md:text-sm max-w-xl mb-8">
-            Sorot kursor ke folder untuk membuka kunci &amp; membaca detail berkas.
+            Geser (drag) ke kanan atau kiri untuk menjelajahi {type === 'projects' ? 'seluruh proyek' : 'seluruh sertifikat'}
           </p>
-
-          {/* Toggle Buttons & Arrow Navigation Bar */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <div className="inline-flex items-center rounded-full border border-border bg-card/90 p-1.5 backdrop-blur-md shadow-2xl">
-              <button
-                onClick={() => {
-                  setActiveTab('projects')
-                  setHoveredId(null)
-                }}
-                className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                  activeTab === 'projects'
-                    ? 'bg-primary text-primary-foreground shadow-[0_0_25px_rgba(var(--primary-rgb),0.45)]'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <FolderGit2 size={16} />
-                Projects ({projectsData.length})
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTab('certificates')
-                  setHoveredId(null)
-                }}
-                className={`flex items-center gap-2.5 rounded-full px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
-                  activeTab === 'certificates'
-                    ? 'bg-primary text-primary-foreground shadow-[0_0_25px_rgba(var(--primary-rgb),0.45)]'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <Award size={16} />
-                Prestasi / Sertifikat ({certificatesData.length})
-              </button>
-            </div>
-
-            {/* Scroll Navigation Arrows */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/90 p-1.5 backdrop-blur-md shadow-xl">
-              <button
-                onClick={() => handleScroll('left')}
-                title="Geser Kiri"
-                className="flex items-center justify-center h-9 w-9 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 active:scale-95 shadow"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-wider px-1">GESER</span>
-              <button
-                onClick={() => handleScroll('right')}
-                title="Geser Kanan"
-                className="flex items-center justify-center h-9 w-9 rounded-full bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 active:scale-95 shadow"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* FULL WIDTH DECK CONTAINER (100% Edge-to-Edge Screen Width) */}
-      <div className="relative group/deck w-full">
-        {/* Side Floating Quick Action Arrows */}
-        <button
-          onClick={() => handleScroll('left')}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-card/90 text-muted-foreground hover:bg-primary hover:text-primary-foreground border border-border backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
-          title="Geser Kiri"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button
-          onClick={() => handleScroll('right')}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex items-center justify-center h-12 w-12 rounded-full bg-card/90 text-muted-foreground hover:bg-primary hover:text-primary-foreground border border-border backdrop-blur-md transition-all duration-300 shadow-2xl opacity-70 group-hover/deck:opacity-100"
-          title="Geser Kanan"
-        >
-          <ChevronRight size={24} />
-        </button>
+      {/* Custom Drag Cursor (Placed outside perspective container to avoid breaking 'fixed' positioning) */}
+      <motion.div
+        className="fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center px-6 py-2.5 bg-white/70 backdrop-blur-xl rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.2)] border border-white/50 text-black font-bold text-base tracking-wide"
+        style={{
+          x: mouseX,
+          y: mouseY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{
+          scale: isHovering ? 1 : 0,
+          opacity: isHovering ? 1 : 0,
+        }}
+        transition={{
+          scale: { type: "spring", stiffness: 400, damping: 28, mass: 0.5 },
+          opacity: { duration: 0.2 }
+        }}
+      >
+        Drag
+      </motion.div>
 
-        {/* Scrollable Wave Container spanning full screen width */}
-        <div
-          ref={scrollRef}
-          className="w-full overflow-x-auto py-12 px-6 sm:px-12 md:px-16 scroll-smooth no-scrollbar"
-        >
-          <div className="flex items-center justify-start xl:justify-center min-w-max -space-x-8 sm:-space-x-10 md:-space-x-12 px-4 pt-4 pb-6">
-            {(activeTab === 'projects' ? projectsData : certificatesData).map((item, index) => {
-              const isHovered = hoveredId === item.id
-              const waveStyle = waveStyles[index % waveStyles.length]
-
-              return (
-                  <div
-                    key={item.id}
-                    onMouseEnter={() => setHoveredId(item.id)}
-                    onMouseLeave={() => setHoveredId(null)}
-                    className={`group relative flex-none w-[280px] sm:w-[310px] md:w-[330px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer ${
-                      isHovered ? 'z-30' : 'z-10'
-                    }`}
-                    style={{
-                      transform: isHovered
-                        ? 'translateY(-14px) rotate(0deg) scale(1.02)'
-                        : `translateY(${waveStyle.translateY}) rotate(${waveStyle.rotate}) scale(1)`,
-                    }}
-                  >
-                  {/* Folder Tab Header */}
-                  <div className="flex items-end justify-between px-2">
-                    <div
-                      className={`relative flex items-center gap-2 rounded-t-xl px-4 py-2 font-mono text-[11px] font-bold tracking-wider transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] border border-b-0 ${
-                        isHovered
-                          ? 'border-primary bg-primary text-primary-foreground shadow-[0_-3px_10px_rgba(var(--primary-rgb),0.4)]'
-                          : 'border-border bg-muted text-muted-foreground group-hover:border-primary/80 group-hover:bg-muted'
-                      }`}
-                    >
-                      <Folder size={14} className={isHovered ? 'text-primary-foreground fill-primary-foreground' : 'text-primary fill-primary/40'} />
-                      <span>{item.fileNo}</span>
-                    </div>
-                    <span className="font-mono text-[10px] text-muted-foreground px-2 py-1 font-semibold">#0{index + 1}</span>
-                  </div>
-
-                  {/* Folder Card Body */}
-                  <div
-                    className={`relative flex flex-col justify-between overflow-hidden rounded-2xl rounded-tl-none border transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] min-h-[380px] ${
-                      isHovered
-                        ? 'border-primary bg-card/95 ring-1 ring-primary/40 shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.95)] shadow-primary/20'
-                        : 'border-border/80 bg-card group-hover:border-primary/60 shadow-xl'
-                    }`}
-                  >
-                    {/* Minimalist Lock/Eye Cover - High Contrast Card Background (Shown when NOT hovered) */}
-                    <div
-                      className={`absolute inset-0 z-20 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-muted via-card to-background transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                        isHovered ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'
-                      }`}
-                    >
-                      {/* Centered Lock Icon with Glowing Ring */}
-                      <div className="relative flex flex-col items-center justify-center">
-                        <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl animate-pulse" />
-                        <div className="relative flex items-center justify-center h-20 w-20 rounded-2xl bg-card/90 border border-primary/40 text-primary shadow-[0_0_30px_rgba(var(--primary-rgb),0.25)] group-hover:border-primary group-hover:scale-110 transition-all duration-300">
-                          <Lock size={36} className="text-primary" />
-                        </div>
-                        
-                        <div className="mt-6 flex items-center gap-2 font-mono text-xs font-bold text-muted-foreground uppercase tracking-widest group-hover:text-primary transition-colors">
-                          <Eye size={14} className="text-primary animate-bounce" />
-                          <span>HOVER TO UNLOCK</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Detailed Content (Revealed when HOVERED) */}
-                    <div
-                      className={`flex flex-col justify-between flex-1 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                        isHovered ? 'opacity-100 delay-150' : 'opacity-0 pointer-events-none'
-                      }`}
-                    >
-                      {/* Photo Banner Area */}
-                      <div className="relative h-44 w-full overflow-hidden bg-background">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          className="object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                        <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-background/80 text-primary border border-primary/40">
-                            {item.category}
-                          </span>
-                          <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded bg-background/80 text-muted-foreground border border-border">
-                            {item.year}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Card Info Body */}
-                      <div className="flex flex-1 flex-col justify-between p-5">
-                        <div>
-                          <h3 className="text-base font-bold text-foreground mb-2 leading-snug text-primary">
-                            {item.title}
-                          </h3>
-
-                          {activeTab === 'projects' ? (
-                            <div className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground mb-3">
-                              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                              {(item as typeof projectsData[0]).status}
-                            </div>
-                          ) : (
-                            <p className="font-mono text-xs text-muted-foreground mb-3">
-                              Penerbit: <span className="text-foreground font-semibold">{(item as typeof certificatesData[0]).issuer}</span>
-                            </p>
-                          )}
-                        </div>
-
-                        <div>
-                          {/* Tags */}
-                          <div className="flex flex-wrap gap-1 border-t border-border pt-3 mb-3">
-                            {item.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="rounded border border-primary/20 bg-primary/5 px-2 py-0.5 font-mono text-[9px] text-primary"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-
-                          {/* Action Button */}
-                          {activeTab === 'projects' && 'slug' in item ? (
-                            <Link href={`/project/${(item as typeof projectsData[0]).slug}`} className="flex items-center justify-between font-mono text-xs font-bold text-primary-foreground bg-primary rounded-lg px-3 py-2 shadow-md hover:brightness-110 transition-all">
-                              <span>Lihat Proyek</span>
-                              <ArrowUpRight size={15} />
-                            </Link>
-                          ) : (
-                            <div className="flex items-center justify-between font-mono text-xs font-bold text-primary-foreground bg-primary rounded-lg px-3 py-2 shadow-md">
-                              <span>Verifikasi</span>
-                              <ExternalLink size={15} />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+      {/* FULL WIDTH DECK CONTAINER */}
+      <div 
+        ref={containerRef}
+        className="relative w-full cursor-none overflow-hidden"
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        {/* Draggable Track */}
+        <div ref={carouselRef} className="w-full py-16 px-0">
+          <motion.div
+            drag="x"
+            // Allow dragging all the way to center even at the extremes
+            dragConstraints={{ right: windowWidth / 2, left: -totalWidth + windowWidth / 2 }}
+            dragElastic={0.2}
+            dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
+            style={{ x }}
+            animate={controls}
+            onDragEnd={handleDragEnd}
+            className="flex items-center min-w-max"
+          >
+            {infiniteItems.map((item, index) => (
+              <CarouselItem key={item.uniqueId} item={item} index={index} />
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
   )
+}
+
+export function Projects() {
+  return <Gallery type="projects" />
+}
+
+export function Certificates() {
+  return <Gallery type="certificates" />
 }

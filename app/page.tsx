@@ -4,7 +4,7 @@ import { AboutMe } from '@/components/about-me'
 import { About } from '@/components/about'
 import { LinuxCloud } from '@/components/linux-cloud'
 import { Experience } from '@/components/experience'
-import { Projects } from '@/components/projects'
+import { Projects, Certificates } from '@/components/projects'
 import { Contact } from '@/components/contact'
 import { SiteFooter } from '@/components/site-footer'
 import { PageWrapper } from '@/components/page-wrapper'
@@ -20,6 +20,7 @@ export default function Page() {
         <LinuxCloud />
         <Experience />
         <Projects />
+        <Certificates />
         <Contact />
         <SiteFooter />
       </main>
