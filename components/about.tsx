@@ -4,26 +4,26 @@ import { useRef, useState, useEffect, useCallback } from 'react'
 
 /* ── All skills in one flat array with category colors ── */
 const allSkills = [
-  { label: 'React', color: '#61dafb' },
-  { label: 'Next.js', color: '#ffffff' },
-  { label: 'TypeScript', color: '#3178c6' },
-  { label: 'Tailwind CSS', color: '#38bdf8' },
-  { label: 'HTML5 / CSS3', color: '#e34f26' },
-  { label: 'Node.js', color: '#68a063' },
-  { label: 'Express', color: '#eeeeee' },
-  { label: 'Laravel / PHP', color: '#ff2d20' },
-  { label: 'MySQL', color: '#00758f' },
-  { label: 'REST API', color: '#f59e0b' },
-  { label: 'Git & GitHub', color: '#f05033' },
-  { label: 'VS Code', color: '#007acc' },
-  { label: 'Figma', color: '#a259ff' },
-  { label: 'Linux', color: '#fcc624' },
-  { label: 'Vercel', color: '#ffffff' },
-  { label: 'Docker', color: '#2496ed' },
-  { label: 'Nginx', color: '#009639' },
-  { label: 'Cloudflare', color: '#f48120' },
-  { label: 'Python', color: '#3776ab' },
-  { label: 'Redis', color: '#dc382d' },
+  { label: 'React', icon: 'react' },
+  { label: 'Next.js', icon: 'next' },
+  { label: 'TypeScript', icon: 'ts' },
+  { label: 'Tailwind CSS', icon: 'tailwind' },
+  { label: 'HTML5 / CSS3', icon: 'html' },
+  { label: 'Node.js', icon: 'nodejs' },
+  { label: 'Express', icon: 'express' },
+  { label: 'Laravel / PHP', icon: 'laravel' },
+  { label: 'MySQL', icon: 'mysql' },
+  { label: 'REST API', icon: 'postman' },
+  { label: 'Git & GitHub', icon: 'github' },
+  { label: 'VS Code', icon: 'vscode' },
+  { label: 'Figma', icon: 'figma' },
+  { label: 'Linux', icon: 'linux' },
+  { label: 'Vercel', icon: 'vercel' },
+  { label: 'Docker', icon: 'docker' },
+  { label: 'Nginx', icon: 'nginx' },
+  { label: 'Cloudflare', icon: 'cloudflare' },
+  { label: 'Python', icon: 'python' },
+  { label: 'Redis', icon: 'redis' },
 ]
 
 const ribbonItems1 = [
@@ -45,7 +45,7 @@ interface Body {
   w: number
   h: number
   label: string
-  color: string
+  iconIndex: number
 }
 
 /* ── Interactive Skill Playground ── */
@@ -56,7 +56,27 @@ function SkillPlayground() {
   const rafRef = useRef<number>(0)
   const dragRef = useRef<{ idx: number; offX: number; offY: number } | null>(null)
   const mouseRef = useRef({ x: 0, y: 0, active: false })
+  const imagesRef = useRef<Record<string, HTMLImageElement>>({})
   const [ready, setReady] = useState(false)
+
+  // Preload individual skill icons
+  useEffect(() => {
+    let loadedCount = 0
+    allSkills.forEach(skill => {
+      const img = new Image()
+      img.src = `https://skillicons.dev/icons?i=${skill.icon}`
+      img.onload = () => {
+        imagesRef.current[skill.label] = img
+        loadedCount++
+        if (loadedCount === allSkills.length) {
+          // All images loaded, but we don't strictly need to wait to start rendering
+        }
+      }
+      img.onerror = () => {
+        loadedCount++
+      }
+    })
+  }, [])
 
   // Measure text widths and init bodies
   const initBodies = useCallback(() => {
@@ -75,27 +95,21 @@ function SkillPlayground() {
     ctx.scale(dpr, dpr)
     
     const isMobile = window.innerWidth < 768
-    const fontSize = isMobile ? 10 : 12
-    ctx.font = `bold ${fontSize}px "JetBrains Mono", monospace`
 
     const W = rect.width
     const H = rect.height
-    const padX = isMobile ? 12 : 20
-    const padY = isMobile ? 8 : 10
 
-    const bodies: Body[] = allSkills.map((skill) => {
-      const metrics = ctx.measureText(skill.label)
-      const w = metrics.width + padX * 2
-      const h = (isMobile ? 12 : 14) + padY * 2
+    const bodies: Body[] = allSkills.map((skill, index) => {
+      const size = isMobile ? 40 : 48
       return {
-        x: Math.random() * Math.max(0, W - w - 20) + 10,
-        y: Math.random() * Math.max(0, H - h - 20) + 10,
+        x: Math.random() * Math.max(0, W - size - 20) + 10,
+        y: Math.random() * Math.max(0, H - size - 20) + 10,
         vx: (Math.random() - 0.5) * 1.5,
         vy: (Math.random() - 0.5) * 1.5,
-        w,
-        h,
+        w: size,
+        h: size,
         label: skill.label,
-        color: skill.color,
+        iconIndex: index,
       }
     })
 
@@ -201,44 +215,61 @@ function SkillPlayground() {
         const isBeingDragged = drag && bodies[drag.idx] === b
         const isHovered = !drag && mouse.active && mouse.x >= b.x && mouse.x <= b.x + b.w && mouse.y >= b.y && mouse.y <= b.y + b.h
 
-        // Shadow
+        // Subtle shadow on hover/drag
         if (isBeingDragged) {
-          ctx.shadowColor = b.color + '80'
-          ctx.shadowBlur = 20
-          ctx.shadowOffsetY = 4
+          ctx.shadowColor = isLight ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.2)'
+          ctx.shadowBlur = 15
+          ctx.shadowOffsetY = 5
+        } else if (isHovered) {
+          ctx.shadowColor = isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.1)'
+          ctx.shadowBlur = 8
+          ctx.shadowOffsetY = 2
         }
 
-        // Background
-        ctx.fillStyle = isBeingDragged
-          ? b.color + '35'
-          : isHovered
-            ? b.color + '25'
-            : defaultBg
-        ctx.strokeStyle = isBeingDragged
-          ? b.color
-          : isHovered
-            ? b.color + 'aa'
-            : defaultBorder
-        ctx.lineWidth = isBeingDragged ? 1.5 : 1
+        const scale = isBeingDragged ? 1.15 : isHovered ? 1.05 : 1.0
+        const dw = b.w * scale
+        const dh = b.h * scale
+        const dx = b.x - (dw - b.w) / 2
+        const dy = b.y - (dh - b.h) / 2
 
-        const r = 8
-        ctx.beginPath()
-        ctx.roundRect(b.x, b.y, b.w, b.h, r)
-        ctx.fill()
-        ctx.stroke()
+        const img = imagesRef.current[b.label]
+        if (img) {
+          ctx.drawImage(img, dx, dy, dw, dh)
+        } else {
+          // Fallback placeholder while loading
+          ctx.fillStyle = defaultBg
+          ctx.strokeStyle = defaultBorder
+          ctx.beginPath()
+          ctx.roundRect(dx, dy, dw, dh, 12)
+          ctx.fill()
+          ctx.stroke()
+        }
 
         ctx.shadowColor = 'transparent'
         ctx.shadowBlur = 0
         ctx.shadowOffsetY = 0
-
-        // Text
-        ctx.fillStyle = isBeingDragged || isHovered ? b.color : defaultText
-        const isMobile = window.innerWidth < 768
-        const fontSize = isMobile ? 10 : 12
-        ctx.font = `bold ${fontSize}px "JetBrains Mono", monospace`
-        ctx.textBaseline = 'middle'
-        ctx.textAlign = 'center'
-        ctx.fillText(b.label, b.x + b.w / 2, b.y + b.h / 2 + 1)
+        
+        // Tooltip for label when hovered/dragged
+        if ((isHovered || isBeingDragged) && img) {
+          ctx.fillStyle = isLight ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.9)'
+          const fontSize = 11
+          ctx.font = `600 ${fontSize}px "JetBrains Mono", monospace`
+          const metrics = ctx.measureText(b.label)
+          const pad = 6
+          const tw = metrics.width + pad * 2
+          const th = fontSize + pad * 2
+          const tx = b.x + b.w / 2 - tw / 2
+          const ty = dy - th - 8
+          
+          ctx.beginPath()
+          ctx.roundRect(tx, ty, tw, th, 6)
+          ctx.fill()
+          
+          ctx.fillStyle = isLight ? '#fff' : '#000'
+          ctx.textBaseline = 'middle'
+          ctx.textAlign = 'center'
+          ctx.fillText(b.label, tx + tw / 2, ty + th / 2 + 1)
+        }
       }
 
       rafRef.current = requestAnimationFrame(tick)
