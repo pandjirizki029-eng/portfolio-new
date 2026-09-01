@@ -130,25 +130,9 @@ function Gallery({ type }: { type: 'projects' | 'certificates' }) {
     }
   }, [])
 
-  // Hide cursor if user scrolls the page without moving the mouse and leaves the section
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!isHovering || !containerRef.current) return
-      const rect = containerRef.current.getBoundingClientRect()
-      const cx = mouseX.get()
-      const cy = mouseY.get()
-      if (cx < rect.left || cx > rect.right || cy < rect.top || cy > rect.bottom) {
-        setIsHovering(false)
-      }
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [isHovering, mouseX, mouseY])
-
-  // Pseudo-infinite items (duplicate 6 times for performance)
-  // We no longer need 20 loops since the CSS desync boundary bug was fixed!
+  // Pseudo-infinite items (duplicate 3 times for super lightweight 60fps performance)
   const currentData = type === 'projects' ? projectsData : certificatesData
-  const infiniteItems = Array.from({ length: 6 }).flatMap((_, i) => 
+  const infiniteItems = Array.from({ length: 3 }).flatMap((_, i) => 
     currentData.map((item) => ({ ...item, uniqueId: `${i}-${item.id}` }))
   )
   
@@ -260,7 +244,7 @@ function Gallery({ type }: { type: 'projects' | 'certificates' }) {
 
       {/* Custom Drag Cursor (Placed outside perspective container to avoid breaking 'fixed' positioning) */}
       <motion.div
-        className="fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center px-6 py-2.5 bg-white/70 backdrop-blur-xl rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.2)] border border-white/50 text-black font-bold text-base tracking-wide"
+        className="fixed top-0 left-0 z-50 pointer-events-none flex items-center justify-center px-5 py-2 bg-foreground text-background font-bold text-sm tracking-wide rounded-full shadow-2xl border border-white/20"
         style={{
           x: mouseX,
           y: mouseY,

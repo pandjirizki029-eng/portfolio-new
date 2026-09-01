@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { Lanyard } from '@/components/lanyard'
+import { AnimatedGreeting } from '@/components/animated-greeting'
 
 export function Hero() {
   return (
@@ -30,9 +31,7 @@ export function Hero() {
 
             {/* Hi I'm + name */}
             <div>
-              <p className="mb-2 sm:mb-3 font-mono text-[10px] sm:text-xs uppercase tracking-[0.4em] text-primary">
-                Hi, I&apos;m
-              </p>
+              <AnimatedGreeting />
               <h1 className="font-black leading-[0.95] tracking-tighter">
                 <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl text-foreground/90">
                   Muhammad Pandji{' '}

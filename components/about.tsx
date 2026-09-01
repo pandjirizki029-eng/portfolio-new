@@ -78,6 +78,9 @@ function SkillPlayground() {
     })
   }, [])
 
+  const sizeRef = useRef({ w: 0, h: 0 })
+  const isVisibleRef = useRef(false)
+
   // Measure text widths and init bodies
   const initBodies = useCallback(() => {
     const canvas = canvasRef.current
@@ -85,6 +88,7 @@ function SkillPlayground() {
     if (!canvas || !container) return
 
     const rect = container.getBoundingClientRect()
+    sizeRef.current = { w: rect.width, h: rect.height }
     const dpr = window.devicePixelRatio || 1
     canvas.width = rect.width * dpr
     canvas.height = rect.height * dpr
@@ -117,6 +121,24 @@ function SkillPlayground() {
     setReady(true)
   }, [])
 
+  // IntersectionObserver to only run physics when in viewport
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [])
+
   // Physics loop
   useEffect(() => {
     if (!ready) return
@@ -128,9 +150,13 @@ function SkillPlayground() {
     const dpr = window.devicePixelRatio || 1
 
     const tick = () => {
-      const rect = container.getBoundingClientRect()
-      const W = rect.width
-      const H = rect.height
+      if (!isVisibleRef.current) {
+        rafRef.current = requestAnimationFrame(tick)
+        return
+      }
+
+      const W = sizeRef.current.w || container.clientWidth
+      const H = sizeRef.current.h || container.clientHeight
 
       const isLight = document.documentElement.classList.contains('light')
       const defaultBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)'
@@ -359,6 +385,7 @@ function SkillPlayground() {
       const container = containerRef.current
       if (!canvas || !container) return
       const rect = container.getBoundingClientRect()
+      sizeRef.current = { w: rect.width, h: rect.height }
       const dpr = window.devicePixelRatio || 1
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr

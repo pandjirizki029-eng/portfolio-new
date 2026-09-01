@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { Space_Grotesk, JetBrains_Mono, Playfair_Display } from 'next/font/google'
 import { SmoothScrolling } from '@/components/smooth-scrolling'
 import './globals.css'
 
@@ -14,6 +14,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
+})
+
 export const metadata: Metadata = {
   title: 'Muhammad Pandji Ar Rizky Munib — Portfolio',
   description:
@@ -22,7 +28,6 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/images/logo-porto.png' },
-      { url: '/app/icon.png', type: 'image/png' },
     ],
     shortcut: ['/images/logo-porto.png'],
     apple: [
@@ -44,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-background`}
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} bg-background`}
     >
       <body className="font-sans antialiased">
         <SmoothScrolling>

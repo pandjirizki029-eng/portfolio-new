@@ -99,29 +99,32 @@ export function Lanyard() {
       {/* CSS Animations */}
       <style>{`
         @keyframes orbit {
-          from { transform: rotate(var(--rotation-start)); }
-          to { transform: rotate(var(--rotation-end)); }
+          from { transform: rotate(var(--rotation-start)) translateZ(0); }
+          to { transform: rotate(var(--rotation-end)) translateZ(0); }
         }
         @keyframes counter-orbit {
-          from { transform: rotate(var(--counter-start)); }
-          to { transform: rotate(var(--counter-end)); }
+          from { transform: rotate(var(--counter-start)) translateZ(0); }
+          to { transform: rotate(var(--counter-end)) translateZ(0); }
         }
         @keyframes pulse-slow {
-          0%, 100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 35px rgba(249, 115, 22, 0.25)); }
-          50% { transform: scale(1.02); opacity: 0.96; filter: drop-shadow(0 0 50px rgba(249, 115, 22, 0.4)); }
+          0%, 100% { transform: scale(1) translateZ(0); }
+          50% { transform: scale(1.02) translateZ(0); }
         }
         .animate-orbit {
           animation-name: orbit;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
+          will-change: transform;
         }
         .animate-counter-orbit {
           animation-name: counter-orbit;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
+          will-change: transform;
         }
         .animate-pulse-slow {
           animation: pulse-slow 5s ease-in-out infinite;
+          will-change: transform;
         }
         /* Pauses only the hovered item's orbit and counter-orbit animations */
         .orbit-item:has(.tech-icon-trigger:hover),

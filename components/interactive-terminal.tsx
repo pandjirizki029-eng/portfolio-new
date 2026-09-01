@@ -303,12 +303,14 @@ export function InteractiveTerminal() {
           </div>
           <input
             ref={inputRef}
+            id="terminal-command-input"
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="flex-1 min-w-[100px] w-full sm:w-auto bg-transparent outline-none border-none text-[#c9d1d9] caret-primary"
             spellCheck="false"
             autoComplete="off"
+            suppressHydrationWarning
           />
         </form>
       </div>

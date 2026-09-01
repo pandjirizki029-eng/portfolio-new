@@ -56,8 +56,8 @@ const interests = [
   { icon: Target, label: 'CTF / Security' },
 ]
 
-/* ── Animated counter hook ── */
-function useCountUp(target: number, duration: number, start: boolean) {
+/* ── Isolated Animated counter component ── */
+function CountUpNumber({ target, duration, start }: { target: number; duration: number; start: boolean }) {
   const [count, setCount] = useState(target)
   useEffect(() => {
     if (!start) return
@@ -73,7 +73,7 @@ function useCountUp(target: number, duration: number, start: boolean) {
     raf = requestAnimationFrame(step)
     return () => cancelAnimationFrame(raf)
   }, [target, duration, start])
-  return count
+  return <span>{count}</span>
 }
 
 /* ── Scroll-reveal hook ── */
@@ -131,10 +131,6 @@ export function AboutMe() {
   const heroReveal = useReveal(0.1)
   const quoteReveal = useReveal(0.2)
   const interestsReveal = useReveal(0.15)
-
-  const projectsCount = useCountUp(8, 1500, heroReveal.visible)
-  const techCount = useCountUp(12, 1500, heroReveal.visible)
-  const yearsCount = useCountUp(2, 1200, heroReveal.visible)
 
   return (
     <section id="whoami" className="relative border-b border-border overflow-hidden">
@@ -216,13 +212,13 @@ export function AboutMe() {
             {/* Mini stats row */}
             <div className="mt-8 flex gap-6 border-t border-foreground/10 pt-6">
               {[
-                { value: `${projectsCount}+`, label: 'Proyek' },
-                { value: `${techCount}+`, label: 'Teknologi' },
-                { value: `${yearsCount}+`, label: 'Tahun Coding' },
+                { target: 8, label: 'Proyek', duration: 1500 },
+                { target: 12, label: 'Teknologi', duration: 1500 },
+                { target: 2, label: 'Tahun Coding', duration: 1200 },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="text-xl font-bold tracking-tight text-foreground">
-                    {stat.value}
+                    <CountUpNumber target={stat.target} duration={stat.duration} start={heroReveal.visible} />+
                   </div>
                   <div className="mt-0.5 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                     {stat.label}
