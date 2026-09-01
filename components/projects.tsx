@@ -207,10 +207,15 @@ function Gallery({ type }: { type: 'projects' | 'certificates' }) {
           href={type === 'projects' && item.slug ? `/project/${item.slug}` : '#'}
           onMouseEnter={() => setIsHovering(false)}
           onMouseLeave={() => setIsHovering(true)}
-          className="absolute bottom-5 right-5 z-30 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white cursor-pointer opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 hover:scale-110 transition-all duration-300"
+          className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-5 md:right-5 z-30 flex h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-black/60 md:bg-white/10 backdrop-blur-md border border-white/25 text-white cursor-pointer opacity-100 translate-y-0 md:opacity-0 md:translate-y-3 md:group-hover:opacity-100 md:group-hover:translate-y-0 hover:scale-110 active:scale-95 transition-all duration-300 shadow-lg"
           title={type === 'projects' ? 'Lihat Detail Proyek' : 'Lihat Sertifikat'}
+          aria-label={type === 'projects' ? `Lihat Detail ${item.title}` : `Lihat Sertifikat ${item.title}`}
         >
-          {type === 'projects' ? <ArrowUpRight size={24} /> : <ExternalLink size={24} />}
+          {type === 'projects' ? (
+            <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+          ) : (
+            <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+          )}
         </Link>
         </motion.div>
       </div>
